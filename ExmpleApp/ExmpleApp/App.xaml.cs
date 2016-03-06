@@ -15,7 +15,7 @@ namespace ExmpleApp
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
+            //base.OnStartup(e);
             Bootstrapper boot = new Bootstrapper();
             boot.Run();
         }

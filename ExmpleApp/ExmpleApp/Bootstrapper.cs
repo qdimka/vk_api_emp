@@ -14,6 +14,8 @@ namespace ExmpleApp
 {
     public class Bootstrapper : MefBootstrapper
     {
+        private const string ModuleCatalogUri = "/ExmpleApp;component/ModulesCatalog.xaml";
+
         //Создание загрузчика для приложения
         protected override DependencyObject CreateShell()
         {
@@ -33,7 +35,7 @@ namespace ExmpleApp
         {
             base.ConfigureAggregateCatalog();
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(Bootstrapper).Assembly));
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ExmpleApp.LoginModule.LoginModule).Assembly));
+            //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ExmpleApp.LoginModule.LoginModule).Assembly));
         }
 
         protected override IModuleCatalog CreateModuleCatalog()
