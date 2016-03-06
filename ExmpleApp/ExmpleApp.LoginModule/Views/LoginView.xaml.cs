@@ -32,6 +32,7 @@ namespace ExmpleApp.LoginModule.Views
         [Import]
         public LoginViewModel ViewModel
         {
+            get { return this.DataContext as LoginViewModel;}
             set { this.DataContext = value; }
         }
     }

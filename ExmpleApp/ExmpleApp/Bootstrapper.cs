@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using Prism.Modularity;
 
 namespace ExmpleApp
 {
@@ -23,7 +24,7 @@ namespace ExmpleApp
         protected override void InitializeShell()
         {
             base.InitializeShell();
-            Application.Current.MainWindow = (MainWindow)this.Shell;
+            Application.Current.MainWindow = (Window)this.Shell;
             Application.Current.MainWindow.Show();
         }
 
@@ -32,6 +33,12 @@ namespace ExmpleApp
         {
             base.ConfigureAggregateCatalog();
             this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(Bootstrapper).Assembly));
+            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ExmpleApp.LoginModule.LoginModule).Assembly));
+        }
+
+        protected override IModuleCatalog CreateModuleCatalog()
+        {
+            return new ConfigurationModuleCatalog();
         }
     }
 }
