@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ExmpleApp.LoginModule.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +20,19 @@ namespace ExmpleApp.LoginModule.Views
     /// <summary>
     /// Логика взаимодействия для LoginView.xaml
     /// </summary>
+    [Export("LoginView")]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public partial class LoginView : UserControl
     {
         public LoginView()
         {
             InitializeComponent();
+        }
+
+        [Import]
+        public LoginViewModel ViewModel
+        {
+            set { this.DataContext = value; }
         }
     }
 }

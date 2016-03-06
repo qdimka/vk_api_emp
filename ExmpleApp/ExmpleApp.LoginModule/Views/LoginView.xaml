@@ -6,16 +6,63 @@
              xmlns:local="clr-namespace:ExmpleApp.LoginModule.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <UserControl.Resources>
+        <DataTemplate x:Key="LoginTemplate">
+            <Grid HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+                
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Email"/>
+
+                    <TextBox Grid.Row="0"
+                     Grid.Column="1"
+                     Margin="5"
+                     Text="{Binding Email}"/>
+
+                    <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Pasword"/>
+
+                    <TextBox Grid.Row="1"
+                     Grid.Column="1"
+                     Margin="5"
+                     Text="{Binding Password}"/>
+                </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid  x:Name="Root" Background="White">
+
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+
+        <ContentControl Content="{Binding Login}" 
+                        ContentTemplate="{StaticResource LoginTemplate}"
+                        HorizontalContentAlignment="Stretch" 
+                        VerticalContentAlignment="Stretch"/>
+
+        <Button Grid.Row="2"
+                    Grid.ColumnSpan="2"   
+                    Margin="10"
+                    Content="Log in"/>
+
     </Grid>
-    
 </UserControl>
