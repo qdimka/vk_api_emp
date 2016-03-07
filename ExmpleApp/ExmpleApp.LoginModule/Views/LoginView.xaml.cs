@@ -20,7 +20,7 @@ namespace ExmpleApp.LoginModule.Views
     /// <summary>
     /// Логика взаимодействия для LoginView.xaml
     /// </summary>
-    [Export("LoginView")]
+    [Export(typeof(LoginView))]
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public partial class LoginView : UserControl
     {
