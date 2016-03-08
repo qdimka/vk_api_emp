@@ -9,6 +9,6 @@ namespace ExmpleApp.Infrastructure.SharedServices
 {
     public interface IVkApi
     {
-        VkApi Instance();
+        VkApi Instance { get; }
     }
 }

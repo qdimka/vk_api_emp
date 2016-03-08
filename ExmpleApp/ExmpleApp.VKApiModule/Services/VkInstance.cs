@@ -12,11 +12,19 @@ namespace ExmpleApp.VKApiModule.Services
     [Export(typeof(IVkApi))]
     public class VkInstance : IVkApi
     {
-        static readonly VkApi instance = new VkApi();
+        private readonly VkApi _api;
 
-        public VkApi Instance()
+        public VkInstance()
         {
-            return instance;
+            _api = new VkApi();
+        }
+
+        public VkApi Instance
+        {
+            get
+            {
+                return _api;
+            }
         }
     }
 }

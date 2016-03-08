@@ -18,14 +18,14 @@ namespace ExmpleApp.LoginModule.ViewModels
     public class LoginViewModel : BindableBase
     {
         private readonly DelegateCommand loginCommand;
-        //private readonly IloginService loginService;
+        private readonly IloginService loginService;
         private LoginModel login;
 
         [ImportingConstructor]
-        public LoginViewModel(/*IloginService LoginService*/)
+        public LoginViewModel(IloginService LoginService)
         {
             this.login = new LoginModel();
-            //this.loginService = LoginService;
+            this.loginService = LoginService;
             this.loginCommand = new DelegateCommand(LogIn);
         }
 
@@ -42,7 +42,7 @@ namespace ExmpleApp.LoginModule.ViewModels
 
         private void LogIn()
         {
-            //loginService.Login(Login);
+            loginService.Login(Login);
         }
     }
 }
