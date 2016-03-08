@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExmpleApp.LoginModule.Models
+namespace ExmpleApp.Infrastructure.Models
 {
     public class LoginModel
     {
