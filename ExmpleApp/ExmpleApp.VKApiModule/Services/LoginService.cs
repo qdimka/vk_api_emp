@@ -13,7 +13,7 @@ namespace ExmpleApp.VKApiModule.Services
     [Export(typeof(IloginService))]
     public class LoginService : IloginService
     {
-        private ulong AppID = 1111111;
+        private ulong AppID = 5342182;
         IVkApi api;
 
         [ImportingConstructor]

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExmpleApp.Infrastructure", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExmpleApp.VKApiModule", "ExmpleApp.VKApiModule\ExmpleApp.VKApiModule.csproj", "{A31E43CC-C8D6-4A45-A1AD-D04929F6B0DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExmpleApp.PlayerModule", "ExmpleApp.PlayerModule\ExmpleApp.PlayerModule.csproj", "{3A024C93-85D5-4987-8462-7B1E136455A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A31E43CC-C8D6-4A45-A1AD-D04929F6B0DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A31E43CC-C8D6-4A45-A1AD-D04929F6B0DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A31E43CC-C8D6-4A45-A1AD-D04929F6B0DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A024C93-85D5-4987-8462-7B1E136455A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A024C93-85D5-4987-8462-7B1E136455A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A024C93-85D5-4987-8462-7B1E136455A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A024C93-85D5-4987-8462-7B1E136455A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
