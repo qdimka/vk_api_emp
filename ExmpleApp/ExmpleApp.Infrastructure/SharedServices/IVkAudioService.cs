@@ -11,12 +11,12 @@ namespace ExmpleApp.Infrastructure.SharedServices
 {
     public interface IVkAudioService
     {
-        List<Audio> GetMusicByUserId(long? userId);
+        ObservableCollection<Audio> GetMusicByUserId(long? userId);
 
-        List<Audio> GetPopularMusic();
+        ObservableCollection<Audio> GetPopularMusic();
 
-        List<Audio> GetRecommendMusic();
+        ObservableCollection<Audio> GetRecommendMusic();
 
-        List<Audio> GetSearchMusicResults(string SearchQuery);
+        ObservableCollection<Audio> GetSearchMusicResults(string SearchQuery);
     }
 }

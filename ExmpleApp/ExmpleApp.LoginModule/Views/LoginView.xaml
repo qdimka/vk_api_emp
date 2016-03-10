@@ -44,7 +44,6 @@
                      Margin="5"
                      Text="{Binding Password}"/>
 
-
             </Grid>
         </DataTemplate>
     </UserControl.Resources>

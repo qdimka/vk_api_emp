@@ -10,43 +10,41 @@ using System.ComponentModel.Composition;
 using VkNet.Model.Attachments;
 using VkNet.Model.RequestParams;
 using VkNet.Enums;
+using VkNet.Model;
 
 namespace ExmpleApp.VKApiModule.Services
 {
     [Export(typeof(IVkAudioService))]
     public class AudioService : IVkAudioService
     {
-        IVkApi _api;
+        IVkApi api;
 
         [ImportingConstructor]
         public AudioService(IVkApi api)
         {
-            this._api = api;
+            this.api = api;
         }
 
-        public List<Audio> GetMusicByUserId(long? userId)
+        public ObservableCollection<Audio> GetMusicByUserId(long? userId)
         {
-            try
-            {
-                return _api.Instance?.Audio.Get((long)userId).ToList();
-            }
-            catch
-            {
-                return null;
-            }
+            User user;
+            var audios = api.Instance?.Audio.Get(out user, new AudioGetParams() { OwnerId = userId });
+            return new ObservableCollection<Audio>(audios.Select(a => a));
         }
 
-        public List<Audio> GetPopularMusic()
+        public ObservableCollection<Audio> GetPopularMusic()
         {
-            return _api.Instance?.Audio.GetPopular().ToList();
+            var audios = api.Instance?.Audio.GetPopular();
+            return new ObservableCollection<Audio>(audios.Select(a => a));
         }
 
-        public List<Audio> GetRecommendMusic()
+        public ObservableCollection<Audio> GetRecommendMusic()
         {
-            return _api.Instance?.Audio.GetPopular().ToList();
+            var audios = api.Instance?.Audio.GetRecommendations();
+            return new ObservableCollection<Audio>(audios.Select(a => a));
         }
 
-        public List<Audio> GetSearchMusicResults(string SearchQuery)
+        public ObservableCollection<Audio> GetSearchMusicResults(string SearchQuery)
         {
             long total = 0;
 
@@ -57,7 +55,8 @@ namespace ExmpleApp.VKApiModule.Services
                 Query = SearchQuery,
                 Sort = AudioSort.Duration
             };
-            return _api.Instance?.Audio.Search(@params,out total).ToList();
+            var audios = api.Instance?.Audio.Search(@params, out total);
+            return new ObservableCollection<Audio>(audios.Select(a => a));
         }
     }
 }

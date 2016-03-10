@@ -2,6 +2,7 @@
 using ExmpleApp.Infrastructure.Models;
 using ExmpleApp.Infrastructure.SharedServices;
 using Prism.Commands;
+using Prism.Modularity;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
@@ -21,6 +22,10 @@ namespace ExmpleApp.LoginModule.ViewModels
         private readonly DelegateCommand loginCommand;
         private readonly IloginService loginService;
         private readonly IRegionManager regionManager;
+
+        [Import(AllowRecomposition = false)]
+        public IModuleManager ModuleManager;
+
         private const string playListView = "PlayListView";
 
         private static Uri PlayListViewUrl = new Uri(playListView, UriKind.Relative);
@@ -49,6 +54,7 @@ namespace ExmpleApp.LoginModule.ViewModels
         private void LogIn()
         {
             loginService.Login(Login);
+            this.ModuleManager.LoadModule("PlayerModule");
             this.regionManager.RequestNavigate(RegionNames.MainRegion, PlayListViewUrl);
         }
     }

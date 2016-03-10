@@ -19,7 +19,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
     {
         IVkAudioService _audioService;
         IVkApi api;
-        List<Audio> music;
+        ObservableCollection<Audio> music;
         private string query;
 
         private readonly DelegateCommand getPopular;
@@ -32,6 +32,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
         {
             this.api = api;
             this._audioService = audioService;
+
             music = this._audioService.GetMusicByUserId(api.Instance.UserId);
 
             this.getPopular = new DelegateCommand(GetPopular);
@@ -41,12 +42,13 @@ namespace ExmpleApp.PlayerModule.ViewModels
         }
 
 
-        List<Audio> Music
+        public ObservableCollection<Audio> Music
         {
             get { return this.music; }
             set
             {
                 this.SetProperty(ref this.music, value);
+                this.OnPropertyChanged(() => Music);
             }
         }
 
@@ -69,18 +71,17 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         private void GetPopular()
         {
-            music = this._audioService.GetPopularMusic();
-            int i = music.Count;
+            Music = this._audioService.GetPopularMusic();
         }
 
         private void GetRecommend()
         {
-            music = this._audioService.GetPopularMusic();
+            Music = this._audioService.GetPopularMusic();
         }
 
         private void GetSearch()
         {
-            music = this._audioService.GetPopularMusic();
+            Music = this._audioService.GetPopularMusic();
         }
 
         private void GetUserMusic()
