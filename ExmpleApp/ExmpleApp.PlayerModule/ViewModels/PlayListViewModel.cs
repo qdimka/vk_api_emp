@@ -18,7 +18,8 @@ namespace ExmpleApp.PlayerModule.ViewModels
     public class PlayListViewModel:BindableBase
     {
         IVkAudioService _audioService;
-        ReadOnlyCollection<Audio> music;
+        IVkApi api;
+        List<Audio> music;
         private string query;
 
         private readonly DelegateCommand getPopular;
@@ -29,6 +30,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
         [ImportingConstructor]
         public PlayListViewModel(IVkAudioService audioService, IVkApi api)
         {
+            this.api = api;
             this._audioService = audioService;
             music = this._audioService.GetMusicByUserId(api.Instance.UserId);
 
@@ -39,16 +41,22 @@ namespace ExmpleApp.PlayerModule.ViewModels
         }
 
 
-        ReadOnlyCollection<Audio> Music
+        List<Audio> Music
         {
             get { return this.music; }
-            set { this.SetProperty(ref this.music, value); }
+            set
+            {
+                this.SetProperty(ref this.music, value);
+            }
         }
 
         public String SearchQuery
         {
             get { return this.query; }
-            set { this.SetProperty(ref this.query, value); }
+            set
+            {
+                this.SetProperty(ref this.query, value);
+            }
         }
 
         public ICommand GetPopularMusic => getPopular;
@@ -61,17 +69,18 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         private void GetPopular()
         {
-            Music = this._audioService.GetPopularMusic();
+            music = this._audioService.GetPopularMusic();
+            int i = music.Count;
         }
 
         private void GetRecommend()
         {
-            Music = this._audioService.GetPopularMusic();
+            music = this._audioService.GetPopularMusic();
         }
 
         private void GetSearch()
         {
-            Music = this._audioService.GetPopularMusic();
+            music = this._audioService.GetPopularMusic();
         }
 
         private void GetUserMusic()

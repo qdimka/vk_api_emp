@@ -24,22 +24,29 @@ namespace ExmpleApp.VKApiModule.Services
             this._api = api;
         }
 
-        public ReadOnlyCollection<Audio> GetMusicByUserId(long? userId)
-        { 
-            return _api?.Instance.Audio.Get((long)userId);
-        }
-
-        public ReadOnlyCollection<Audio> GetPopularMusic()
+        public List<Audio> GetMusicByUserId(long? userId)
         {
-            return _api?.Instance.Audio.GetPopular();
+            try
+            {
+                return _api.Instance?.Audio.Get((long)userId).ToList();
+            }
+            catch
+            {
+                return null;
+            }
         }
 
-        public ReadOnlyCollection<Audio> GetRecommendMusic()
+        public List<Audio> GetPopularMusic()
         {
-            return _api?.Instance.Audio.GetPopular();
+            return _api.Instance?.Audio.GetPopular().ToList();
         }
 
-        public ReadOnlyCollection<Audio> GetSearchMusicResults(string SearchQuery)
+        public List<Audio> GetRecommendMusic()
+        {
+            return _api.Instance?.Audio.GetPopular().ToList();
+        }
+
+        public List<Audio> GetSearchMusicResults(string SearchQuery)
         {
             long total = 0;
 
@@ -50,7 +57,7 @@ namespace ExmpleApp.VKApiModule.Services
                 Query = SearchQuery,
                 Sort = AudioSort.Duration
             };
-            return _api?.Instance.Audio.Search(@params,out total);
+            return _api.Instance?.Audio.Search(@params,out total).ToList();
         }
     }
 }

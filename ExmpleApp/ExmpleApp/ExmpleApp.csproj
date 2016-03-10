@@ -126,6 +126,10 @@
       <Project>{94293355-a877-41c8-874e-b20b15cca432}</Project>
       <Name>ExmpleApp.LoginModule</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ExmpleApp.PlayerModule\ExmpleApp.PlayerModule.csproj">
+      <Project>{3a024c93-85d5-4987-8462-7b1e136455a0}</Project>
+      <Name>ExmpleApp.PlayerModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ExmpleApp.VKApiModule\ExmpleApp.VKApiModule.csproj">
       <Project>{a31e43cc-c8d6-4a45-a1ad-d04929f6b0db}</Project>
       <Name>ExmpleApp.VKApiModule</Name>

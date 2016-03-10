@@ -7,23 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <UserControl.Resources>
-        <DataTemplate x:Key="PlayListTemplate">
-            <Border Margin="5" BorderThickness="1" BorderBrush="SteelBlue" CornerRadius="4" Width="370">
-                <Grid Margin="3">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <TextBlock FontWeight="Bold" Text="{Binding Artist}"/>
-                    <TextBlock Grid.Row="1" Text="{Binding Title}"/>
-                    <TextBlock Grid.Row="2" Text="{Binding Url}"/>
-                </Grid>
-            </Border>
-        </DataTemplate>
-    </UserControl.Resources>
-
     <Grid  x:Name="Root" Background="White">
 
         <Grid.RowDefinitions>
@@ -31,10 +14,21 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ListBox Name="lstCars" 
-                 Margin="5" 
-                 ItemTemplate="{StaticResource PlayListTemplate}"
-                 ItemsSource="{Binding Music,UpdateSourceTrigger=PropertyChanged}"/>
+        <ListView ItemsSource="{Binding Music}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Bisque" BorderThickness="1" Margin="10">
+                        <StackPanel Margin="10">
+                            <TextBlock Text="{Binding Title}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Artist}" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Url}" FontWeight="Bold" Margin="10,0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
         <Button Grid.Row="1"
                     Margin="10"

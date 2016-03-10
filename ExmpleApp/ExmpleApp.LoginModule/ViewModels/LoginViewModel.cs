@@ -1,4 +1,5 @@
-﻿using ExmpleApp.Infrastructure.Models;
+﻿using ExmpleApp.Infrastructure;
+using ExmpleApp.Infrastructure.Models;
 using ExmpleApp.Infrastructure.SharedServices;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -19,14 +20,19 @@ namespace ExmpleApp.LoginModule.ViewModels
     {
         private readonly DelegateCommand loginCommand;
         private readonly IloginService loginService;
+        private readonly IRegionManager regionManager;
+        private const string playListView = "PlayListView";
+
+        private static Uri PlayListViewUrl = new Uri(playListView, UriKind.Relative);
         private LoginModel login;
 
         [ImportingConstructor]
-        public LoginViewModel(IloginService LoginService)
+        public LoginViewModel(IloginService LoginService,IRegionManager regionManager)
         {
             this.login = new LoginModel();
             this.loginService = LoginService;
             this.loginCommand = new DelegateCommand(LogIn);
+            this.regionManager = regionManager;
         }
 
         public LoginModel Login
@@ -43,6 +49,7 @@ namespace ExmpleApp.LoginModule.ViewModels
         private void LogIn()
         {
             loginService.Login(Login);
+            this.regionManager.RequestNavigate(RegionNames.MainRegion, PlayListViewUrl);
         }
     }
 }
