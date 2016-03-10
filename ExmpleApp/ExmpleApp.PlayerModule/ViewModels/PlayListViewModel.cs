@@ -17,7 +17,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PlayListViewModel:BindableBase
     {
-        IVkAudioService _audioService;
+        IVkAudioService audioService;
         IVkApi api;
         ObservableCollection<Audio> music;
         private string query;
@@ -31,9 +31,9 @@ namespace ExmpleApp.PlayerModule.ViewModels
         public PlayListViewModel(IVkAudioService audioService, IVkApi api)
         {
             this.api = api;
-            this._audioService = audioService;
+            this.audioService = audioService;
 
-            music = this._audioService.GetMusicByUserId(api.Instance.UserId);
+            music = this.audioService.GetMusicByUserId(api.Instance.UserId);
 
             this.getPopular = new DelegateCommand(GetPopular);
             this.getRecommend = new DelegateCommand(GetRecommend);
@@ -71,22 +71,22 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         private void GetPopular()
         {
-            Music = this._audioService.GetPopularMusic();
+            Music = this.audioService.GetPopularMusic();
         }
 
         private void GetRecommend()
         {
-            Music = this._audioService.GetPopularMusic();
+            Music = this.audioService.GetPopularMusic();
         }
 
         private void GetSearch()
         {
-            Music = this._audioService.GetPopularMusic();
+            Music = this.audioService.GetPopularMusic();
         }
 
         private void GetUserMusic()
         {
-            Music = this._audioService.GetPopularMusic();
+            Music = this.audioService.GetPopularMusic();
         }
     }
 }
