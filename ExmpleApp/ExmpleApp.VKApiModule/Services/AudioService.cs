@@ -14,8 +14,8 @@ using VkNet.Model;
 
 namespace ExmpleApp.VKApiModule.Services
 {
-    [Export(typeof(IVkAudioService))]
-    public class AudioService : IVkAudioService
+    [Export(typeof(IVkAudioServiceAsync))]
+    public class AudioService : IVkAudioServiceAsync
     {
         IVkApi api;
 
@@ -26,7 +26,7 @@ namespace ExmpleApp.VKApiModule.Services
         }
 
 
-        public Task<ObservableCollection<Audio>> GetMusicByUserId(long? userId)
+        public Task<ObservableCollection<Audio>> GetMusicByUserIdAsync(long? userId)
         {
             User user;
             return Task.Run(() =>
@@ -36,7 +36,7 @@ namespace ExmpleApp.VKApiModule.Services
             });
         }
 
-        public Task<ObservableCollection<Audio>> GetPopularMusic()
+        public Task<ObservableCollection<Audio>> GetPopularMusicAsync()
         {
             return Task.Run(() =>
             {
@@ -45,7 +45,7 @@ namespace ExmpleApp.VKApiModule.Services
             });
         }
 
-        public Task<ObservableCollection<Audio>> GetRecommendMusic()
+        public Task<ObservableCollection<Audio>> GetRecommendMusicAsync()
         {
             return Task.Run(() =>
             {
@@ -54,7 +54,7 @@ namespace ExmpleApp.VKApiModule.Services
             });
         }
 
-        public Task<ObservableCollection<Audio>> GetSearchMusicResults(string SearchQuery)
+        public Task<ObservableCollection<Audio>> GetSearchMusicResultsAsync(string SearchQuery)
         {
             long total = 0;
 

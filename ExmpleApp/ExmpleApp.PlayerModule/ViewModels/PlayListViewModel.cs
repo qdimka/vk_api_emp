@@ -15,29 +15,21 @@ namespace ExmpleApp.PlayerModule.ViewModels
 {
     [Export]
     [PartCreationPolicy(CreationPolicy.NonShared)]
-    public class PlayListViewModel:BindableBase
+    public class PlayListViewModel : BindableBase
     {
-        IVkAudioService audioService;
+        IVkAudioServiceAsync audioService;
         IVkApi api;
         ObservableCollection<Audio> music;
         private string query;
 
-        private readonly DelegateCommand getPopular;
-        private readonly DelegateCommand getRecommend;
-        private readonly DelegateCommand getSearch;
-        private readonly DelegateCommand getUserMusic;
 
         [ImportingConstructor]
-        public PlayListViewModel(IVkAudioService audioService, IVkApi api)
+        public PlayListViewModel(IVkAudioServiceAsync audioService, IVkApi api)
         {
             this.api = api;
             this.audioService = audioService;
 
-            this.getPopular = new DelegateCommand(GetPopular);
-            this.getRecommend = new DelegateCommand(GetRecommend);
-            this.getSearch = new DelegateCommand(GetSearch, () => !String.IsNullOrEmpty(SearchQuery));
-            this.getUserMusic = new DelegateCommand(GetUserMusic);
-            GetUserMusic();
+            GetUserMusicAsync();
         }
 
 
@@ -61,32 +53,32 @@ namespace ExmpleApp.PlayerModule.ViewModels
             }
         }
 
-        public ICommand GetPopularMusic => getPopular;
+        public DelegateCommand GetPopularMusic => DelegateCommand.FromAsyncHandler(GetPopularAsync);
 
-        public ICommand GetRecommendMusic => getRecommend;
+        public DelegateCommand GetRecommendMusic => DelegateCommand.FromAsyncHandler(GetRecommendAsync);
 
-        public ICommand GetSearchMusic => getSearch;
+        public DelegateCommand GetSearchMusic => DelegateCommand.FromAsyncHandler(GetSearchAsync);
 
-        public ICommand GetMusicByUser => getUserMusic;
+        public DelegateCommand GetMusicByUser => DelegateCommand.FromAsyncHandler(GetUserMusicAsync);
 
-        private async void GetPopular()
+        private async Task GetPopularAsync()
         {
-            Music =await this.audioService.GetPopularMusic();
+            Music = await this.audioService.GetPopularMusicAsync();
         }
 
-        private async void GetRecommend()
+        private async Task GetRecommendAsync()
         {
-            Music =await this.audioService.GetRecommendMusic();
+            Music = await this.audioService.GetRecommendMusicAsync();
         }
 
-        private async void GetSearch()
+        private async Task GetSearchAsync()
         {
-            Music =await this.audioService.GetSearchMusicResults(SearchQuery);
+            Music = await this.audioService.GetSearchMusicResultsAsync(SearchQuery);
         }
 
-        private async void GetUserMusic()
+        private async Task GetUserMusicAsync()
         {
-            Music = await this.audioService.GetMusicByUserId(api.Instance.UserId);
+            Music = await this.audioService.GetMusicByUserIdAsync(api.Instance.UserId);
         }
     }
 }

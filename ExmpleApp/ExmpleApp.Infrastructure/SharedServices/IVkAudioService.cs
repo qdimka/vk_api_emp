@@ -9,14 +9,14 @@ using VkNet.Model.Attachments;
 
 namespace ExmpleApp.Infrastructure.SharedServices
 {
-    public interface IVkAudioService
+    public interface IVkAudioServiceAsync
     {
-        Task<ObservableCollection<Audio>> GetMusicByUserId(long? userId);
+        Task<ObservableCollection<Audio>> GetMusicByUserIdAsync(long? userId);
 
-        Task<ObservableCollection<Audio>> GetPopularMusic();
+        Task<ObservableCollection<Audio>> GetPopularMusicAsync();
 
-        Task<ObservableCollection<Audio>> GetRecommendMusic();
+        Task<ObservableCollection<Audio>> GetRecommendMusicAsync();
 
-        Task<ObservableCollection<Audio>> GetSearchMusicResults(string SearchQuery);
+        Task<ObservableCollection<Audio>> GetSearchMusicResultsAsync(string SearchQuery);
     }
 }
