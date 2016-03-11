@@ -8,7 +8,20 @@
         xmlns:prism="http://www.codeplex.com/prism"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <ContentControl prism:RegionManager.RegionName="MainRegion" 
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <ContentControl Grid.Row="0"
+                        prism:RegionManager.RegionName="MainRegion" 
+                        Margin="5,0,5,5" 
+                        HorizontalContentAlignment="Stretch" 
+                        VerticalContentAlignment="Stretch"/>
+
+        <ContentControl Grid.Row="1"
+                        prism:RegionManager.RegionName="PlayerRegion" 
                         Margin="5,0,5,5" 
                         HorizontalContentAlignment="Stretch" 
                         VerticalContentAlignment="Stretch"/>

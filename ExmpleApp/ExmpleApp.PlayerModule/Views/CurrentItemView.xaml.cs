@@ -1,5 +1,4 @@
-﻿using ExmpleApp.PlayerModule.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -18,23 +17,15 @@ using System.Windows.Shapes;
 namespace ExmpleApp.PlayerModule.Views
 {
     /// <summary>
-    /// Логика взаимодействия для PlayListView.xaml
+    /// Логика взаимодействия для CurrentItemView.xaml
     /// </summary>
-    [Export(typeof(PlayListView))]
+    [Export(typeof(CurrentItemView))]
     [PartCreationPolicy(CreationPolicy.NonShared)]
-    public partial class PlayListView : UserControl
+    public partial class CurrentItemView : UserControl
     {
-        public PlayListView()
+        public CurrentItemView()
         {
             InitializeComponent();
         }
-
-        [Import]
-        public PlayListViewModel ViewModel
-        {
-            get { return this.DataContext as PlayListViewModel; }
-            set { this.DataContext = value; }
-        }
-
     }
 }
