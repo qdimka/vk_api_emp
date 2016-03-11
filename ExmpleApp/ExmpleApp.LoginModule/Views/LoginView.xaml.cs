@@ -1,4 +1,5 @@
-﻿using ExmpleApp.LoginModule.ViewModels;
+﻿using ExmpleApp.LoginModule.Interface;
+using ExmpleApp.LoginModule.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;

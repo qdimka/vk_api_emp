@@ -33,12 +33,13 @@ namespace ExmpleApp.PlayerModule.ViewModels
             this.api = api;
             this.audioService = audioService;
 
-            music = this.audioService.GetMusicByUserId(api.Instance.UserId);
+//            music = this.audioService.GetMusicByUserId(api.Instance.UserId);
 
             this.getPopular = new DelegateCommand(GetPopular);
             this.getRecommend = new DelegateCommand(GetRecommend);
-            this.getSearch = new DelegateCommand(GetSearch);
+            //this.getSearch = new DelegateCommand(GetSearch);
             this.getUserMusic = new DelegateCommand(GetUserMusic);
+            GetUserMusic();
         }
 
 
@@ -76,17 +77,17 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         private void GetRecommend()
         {
-            Music = this.audioService.GetPopularMusic();
+            Music = this.audioService.GetRecommendMusic();
         }
 
-        private void GetSearch()
-        {
-            Music = this.audioService.GetPopularMusic();
-        }
+        //private void GetSearch()
+        //{
+        //    Music = this.audioService.GetSearchMusicResults();
+        //}
 
         private void GetUserMusic()
         {
-            Music = this.audioService.GetPopularMusic();
+            Music = this.audioService.GetMusicByUserId(api.Instance.UserId);
         }
     }
 }
