@@ -25,38 +25,51 @@ namespace ExmpleApp.VKApiModule.Services
             this.api = api;
         }
 
-        public ObservableCollection<Audio> GetMusicByUserId(long? userId)
+
+        public Task<ObservableCollection<Audio>> GetMusicByUserId(long? userId)
         {
             User user;
-            var audios = api.Instance?.Audio.Get(out user, new AudioGetParams() { OwnerId = userId });
-            return new ObservableCollection<Audio>(audios.Select(a => a));
+            return Task.Run(() =>
+            {
+                var audios = api.Instance?.Audio.Get(out user, new AudioGetParams() { OwnerId = userId });
+                return new ObservableCollection<Audio>(audios.Select(a => a));
+            });
         }
 
-        public ObservableCollection<Audio> GetPopularMusic()
+        public Task<ObservableCollection<Audio>> GetPopularMusic()
         {
-            var audios = api.Instance?.Audio.GetPopular();
-            return new ObservableCollection<Audio>(audios.Select(a => a));
+            return Task.Run(() =>
+            {
+                var audios = api.Instance?.Audio.GetPopular();
+                return new ObservableCollection<Audio>(audios.Select(a => a));
+            });
         }
 
-        public ObservableCollection<Audio> GetRecommendMusic()
+        public Task<ObservableCollection<Audio>> GetRecommendMusic()
         {
-            var audios = api.Instance?.Audio.GetRecommendations();
-            return new ObservableCollection<Audio>(audios.Select(a => a));
+            return Task.Run(() =>
+            {
+                var audios = api.Instance?.Audio.GetRecommendations();
+                return new ObservableCollection<Audio>(audios.Select(a => a));
+            });
         }
 
-        public ObservableCollection<Audio> GetSearchMusicResults(string SearchQuery)
+        public Task<ObservableCollection<Audio>> GetSearchMusicResults(string SearchQuery)
         {
             long total = 0;
 
             AudioSearchParams @params = new AudioSearchParams()
             {
                 Autocomplete = true,
-                Offset = 1000,
                 Query = SearchQuery,
                 Sort = AudioSort.Duration
             };
-            var audios = api.Instance?.Audio.Search(@params, out total);
-            return new ObservableCollection<Audio>(audios.Select(a => a));
+
+            return Task.Run(() =>
+            {
+                var audios = api.Instance?.Audio.Search(@params, out total);
+                return new ObservableCollection<Audio>(audios.Select(a => a));
+            });
         }
     }
 }

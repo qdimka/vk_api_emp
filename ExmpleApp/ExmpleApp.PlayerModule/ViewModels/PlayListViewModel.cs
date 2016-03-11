@@ -33,11 +33,9 @@ namespace ExmpleApp.PlayerModule.ViewModels
             this.api = api;
             this.audioService = audioService;
 
-//            music = this.audioService.GetMusicByUserId(api.Instance.UserId);
-
             this.getPopular = new DelegateCommand(GetPopular);
             this.getRecommend = new DelegateCommand(GetRecommend);
-            //this.getSearch = new DelegateCommand(GetSearch);
+            this.getSearch = new DelegateCommand(GetSearch, () => !String.IsNullOrEmpty(SearchQuery));
             this.getUserMusic = new DelegateCommand(GetUserMusic);
             GetUserMusic();
         }
@@ -59,6 +57,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
             set
             {
                 this.SetProperty(ref this.query, value);
+                this.OnPropertyChanged(() => SearchQuery);
             }
         }
 
@@ -70,24 +69,24 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         public ICommand GetMusicByUser => getUserMusic;
 
-        private void GetPopular()
+        private async void GetPopular()
         {
-            Music = this.audioService.GetPopularMusic();
+            Music =await this.audioService.GetPopularMusic();
         }
 
-        private void GetRecommend()
+        private async void GetRecommend()
         {
-            Music = this.audioService.GetRecommendMusic();
+            Music =await this.audioService.GetRecommendMusic();
         }
 
-        //private void GetSearch()
-        //{
-        //    Music = this.audioService.GetSearchMusicResults();
-        //}
-
-        private void GetUserMusic()
+        private async void GetSearch()
         {
-            Music = this.audioService.GetMusicByUserId(api.Instance.UserId);
+            Music =await this.audioService.GetSearchMusicResults(SearchQuery);
+        }
+
+        private async void GetUserMusic()
+        {
+            Music = await this.audioService.GetMusicByUserId(api.Instance.UserId);
         }
     }
 }

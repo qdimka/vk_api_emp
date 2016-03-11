@@ -35,5 +35,10 @@ namespace ExmpleApp.PlayerModule.Views
             get { return this.DataContext as PlayListViewModel; }
             set { this.DataContext = value; }
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
