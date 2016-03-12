@@ -4,16 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:c="clr-namespace:ExmpleApp.PlayerModule.Converters"
              xmlns:local="clr-namespace:ExmpleApp.PlayerModule.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <c:GetShortUrl x:Key="GetShortUrl"/>
+    </UserControl.Resources>
 
     <Grid  x:Name="Root">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -41,14 +46,14 @@
 
 
         <ListView ItemsSource="{Binding Music}"
-                  Grid.Row="1"
+                  Grid.Row="2"
                   Grid.ColumnSpan="3">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="Bisque" BorderThickness="2" Margin="10">
                         <StackPanel Margin="10">
                             <TextBlock Text="{Binding Title}" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Url}" />
+                            <TextBlock Text="{Binding Url,Converter={StaticResource GetShortUrl}}" />
                             <TextBlock Text="{Binding Artist}" FontWeight="Bold" Margin="10,0"/>
                         </StackPanel>
                     </Border>
@@ -57,7 +62,7 @@
         </ListView>
 
 
-        <TextBox Grid.Row="2"
+        <TextBox Grid.Row="1"
                  Grid.ColumnSpan="3"
                  Margin="10"
                  Text="{Binding SearchQuery,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">

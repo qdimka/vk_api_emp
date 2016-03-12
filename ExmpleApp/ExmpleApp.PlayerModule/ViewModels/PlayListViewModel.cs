@@ -28,7 +28,6 @@ namespace ExmpleApp.PlayerModule.ViewModels
         {
             this.api = api;
             this.audioService = audioService;
-
             GetUserMusicAsync();
         }
 
@@ -53,6 +52,8 @@ namespace ExmpleApp.PlayerModule.ViewModels
             }
         }
 
+
+
         public DelegateCommand GetPopularMusic => DelegateCommand.FromAsyncHandler(GetPopularAsync);
 
         public DelegateCommand GetRecommendMusic => DelegateCommand.FromAsyncHandler(GetRecommendAsync);
@@ -60,6 +61,8 @@ namespace ExmpleApp.PlayerModule.ViewModels
         public DelegateCommand GetSearchMusic => DelegateCommand.FromAsyncHandler(GetSearchAsync);
 
         public DelegateCommand GetMusicByUser => DelegateCommand.FromAsyncHandler(GetUserMusicAsync);
+
+
 
         private async Task GetPopularAsync()
         {
