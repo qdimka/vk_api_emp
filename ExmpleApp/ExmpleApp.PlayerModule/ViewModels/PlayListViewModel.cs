@@ -1,5 +1,7 @@
 ﻿using ExmpleApp.Infrastructure.SharedServices;
+using ExmpleApp.PlayerModule.Core;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -17,20 +19,25 @@ namespace ExmpleApp.PlayerModule.ViewModels
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PlayListViewModel : BindableBase
     {
-        IVkAudioServiceAsync audioService;
-        IVkApi api;
-        ObservableCollection<Audio> music;
+        private IEventAggregator eventAggregator;
+        private IVkAudioServiceAsync audioService;
+        private IVkApi api;
+
+        private ObservableCollection<Audio> music;
         private string query;
 
-
         [ImportingConstructor]
-        public PlayListViewModel(IVkAudioServiceAsync audioService, IVkApi api)
+        public PlayListViewModel(IVkAudioServiceAsync audioService,
+                                 IVkApi api,
+                                 IEventAggregator eventAggregator)
         {
+            this.eventAggregator = eventAggregator;
             this.api = api;
             this.audioService = audioService;
-            GetUserMusicAsync();
-        }
+            Task.Run(() => GetUserMusicAsync());
 
+            SelectItem = new DelegateCommand<Audio>(OnItemSelected);
+        }
 
         public ObservableCollection<Audio> Music
         {
@@ -53,7 +60,6 @@ namespace ExmpleApp.PlayerModule.ViewModels
         }
 
 
-
         public DelegateCommand GetPopularMusic => DelegateCommand.FromAsyncHandler(GetPopularAsync);
 
         public DelegateCommand GetRecommendMusic => DelegateCommand.FromAsyncHandler(GetRecommendAsync);
@@ -61,8 +67,6 @@ namespace ExmpleApp.PlayerModule.ViewModels
         public DelegateCommand GetSearchMusic => DelegateCommand.FromAsyncHandler(GetSearchAsync);
 
         public DelegateCommand GetMusicByUser => DelegateCommand.FromAsyncHandler(GetUserMusicAsync);
-
-
 
         private async Task GetPopularAsync()
         {
@@ -83,5 +87,32 @@ namespace ExmpleApp.PlayerModule.ViewModels
         {
             Music = await this.audioService.GetMusicByUserIdAsync(api.Instance.UserId);
         }
+
+
+        //Выбранное в listview
+        private Audio selectedAudio;
+
+        public Audio SelectedAudio
+        {
+            get { return this.selectedAudio; }
+            set
+            {
+                this.SetProperty(ref this.selectedAudio, value);
+                this.OnPropertyChanged(()=>SelectedAudio);
+            }
+        }
+
+        public ICommand SelectItem { get; set; }
+
+        private void OnItemSelected(Audio obj)
+        {
+            if (obj == null)
+                return;
+
+            SelectedAudio = obj;
+
+            eventAggregator.GetEvent<SelectedItemEvent>().Publish(obj);
+        }
+
     }
 }

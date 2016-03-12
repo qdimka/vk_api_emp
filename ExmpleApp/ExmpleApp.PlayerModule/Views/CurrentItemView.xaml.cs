@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExmpleApp.PlayerModule.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -26,6 +27,13 @@ namespace ExmpleApp.PlayerModule.Views
         public CurrentItemView()
         {
             InitializeComponent();
+        }
+
+        [Import]
+        public CurrentItemViewModel ViewModel
+        {
+            get { return this.DataContext as CurrentItemViewModel; }
+            set { this.DataContext = value; }
         }
     }
 }
