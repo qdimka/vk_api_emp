@@ -80,10 +80,12 @@
     <Compile Include="Behaviors\SelectorSelectedCommandBehavior.cs" />
     <Compile Include="Behaviors\SelectorSelectionChanged.cs" />
     <Compile Include="Converters\GetShortUrl.cs" />
+    <Compile Include="Core\MediaElementInstance.cs" />
     <Compile Include="Core\MediaPlayerInstance.cs" />
     <Compile Include="Core\SelectedItemEvent.cs" />
     <Compile Include="Helpers\GetNoHttpsUrl.cs" />
     <Compile Include="Interfaces\IMediaElement.cs" />
+    <Compile Include="Interfaces\IMediaPlayer.cs" />
     <Compile Include="PlayerModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\PlayerControlViewModel.cs" />

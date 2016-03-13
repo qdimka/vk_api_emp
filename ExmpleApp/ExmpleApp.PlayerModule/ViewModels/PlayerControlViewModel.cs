@@ -10,6 +10,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 using VkNet.Model.Attachments;
 
@@ -22,7 +23,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
         #region Interfaces
 
         private IEventAggregator eventAggregator;
-        private IMediaPlayer mediaPlayer;
+        private IMediaElement mediaPlayer;
 
         #endregion
 
@@ -39,7 +40,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
         #endregion
 
         [ImportingConstructor]
-        public PlayerControlViewModel(IMediaPlayer mediaPlayer,
+        public PlayerControlViewModel(IMediaElement mediaPlayer,
                                       IEventAggregator eventAggregator,
                                       PlayListViewModel playListViewModel)
         {
@@ -66,6 +67,11 @@ namespace ExmpleApp.PlayerModule.ViewModels
             }
         }
 
+        public MediaElement Media
+        {
+            get { return this.mediaPlayer.Instance; }
+        }
+
         #endregion
 
         #region Commands
@@ -86,7 +92,8 @@ namespace ExmpleApp.PlayerModule.ViewModels
             {
                 CurrentAudio = audio;
 
-                mediaPlayer.Instance.Open(new Uri(GetNoHttpsUrl.Get(audio.Url.ToString()), UriKind.Absolute));
+                //mediaPlayer.Instance.Open(new Uri(GetNoHttpsUrl.Get(audio.Url.ToString()), UriKind.Absolute));
+                mediaPlayer.Instance.Source = (new Uri(GetNoHttpsUrl.Get(audio.Url.ToString()), UriKind.Absolute));
                 mediaPlayer.Instance.Play();
             }
         }
@@ -98,7 +105,8 @@ namespace ExmpleApp.PlayerModule.ViewModels
             {
                 CurrentAudio = audio;
 
-                mediaPlayer.Instance.Open(new Uri(GetNoHttpsUrl.Get(audio.Url.ToString()), UriKind.Absolute));
+                //mediaPlayer.Instance.Open(new Uri(GetNoHttpsUrl.Get(audio.Url.ToString()), UriKind.Absolute));
+                mediaPlayer.Instance.Source = (new Uri(GetNoHttpsUrl.Get(audio.Url.ToString()), UriKind.Absolute));
                 mediaPlayer.Instance.Play();
             }
         }
@@ -110,7 +118,8 @@ namespace ExmpleApp.PlayerModule.ViewModels
             {
                 CurrentAudio = audio;
 
-                mediaPlayer.Instance.Open(new Uri(GetNoHttpsUrl.Get(audio.Url.ToString()), UriKind.Absolute));
+                //mediaPlayer.Instance.Open(new Uri(GetNoHttpsUrl.Get(audio.Url.ToString()), UriKind.Absolute));
+                mediaPlayer.Instance.Source = (new Uri(GetNoHttpsUrl.Get(audio.Url.ToString()), UriKind.Absolute));
                 mediaPlayer.Instance.Play();
             }
         }

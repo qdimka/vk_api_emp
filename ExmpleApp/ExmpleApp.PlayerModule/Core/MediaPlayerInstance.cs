@@ -11,11 +11,11 @@ using System.Windows.Controls;
 namespace ExmpleApp.PlayerModule.Core
 {
     [Export(typeof(IMediaPlayer))]
-    public class MediaElementInstance : IMediaPlayer
+    public class MediaPlayerInstance : IMediaPlayer
     {
         private readonly MediaPlayer instance;
 
-        public MediaElementInstance()
+        public MediaPlayerInstance()
         {
             instance = new MediaPlayer();
             //instance.LoadedBehavior = MediaState.Manual;

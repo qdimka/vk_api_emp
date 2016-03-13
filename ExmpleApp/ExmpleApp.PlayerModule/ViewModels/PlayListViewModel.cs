@@ -25,8 +25,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         private IEventAggregator eventAggregator;
         private IVkAudioServiceAsync audioService;
-        private IMediaPlayer mediaPlayer;
-        private ICommand selectItem;
+        private IMediaElement mediaPlayer;
         private ICommand playCommand;
         private IVkApi api;
 
@@ -43,7 +42,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         [ImportingConstructor]
         public PlayListViewModel(IVkAudioServiceAsync audioService,
-                                 IMediaPlayer mediaPlayer,
+                                 IMediaElement mediaPlayer,
                                  IEventAggregator eventAggregator,
                                  IVkApi api)
         {
@@ -143,7 +142,8 @@ namespace ExmpleApp.PlayerModule.ViewModels
                 //Делаем выбранный элемент текущим
                 CurrentPlayAudio = audio;
 
-                mediaPlayer.Instance.Open(new Uri(GetNoHttpsUrl.Get(CurrentPlayAudio.Url.ToString()), UriKind.Absolute));
+                //mediaPlayer.Instance.Open(new Uri(GetNoHttpsUrl.Get(CurrentPlayAudio.Url.ToString()), UriKind.Absolute));
+                mediaPlayer.Instance.Source =(new Uri(GetNoHttpsUrl.Get(CurrentPlayAudio.Url.ToString()), UriKind.Absolute));
                 mediaPlayer.Instance.Play();
             }
         }
