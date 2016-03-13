@@ -35,15 +35,17 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         private Audio currentAudio;
         private SubscriptionToken subscriptionToken;
+        private PlayListViewModel plVM;
         #endregion
 
         [ImportingConstructor]
         public PlayerControlViewModel(IMediaPlayer mediaPlayer,
-                                      IEventAggregator eventAggregator)
+                                      IEventAggregator eventAggregator,
+                                      PlayListViewModel plVM)
         {
             this.mediaPlayer = mediaPlayer;
             this.eventAggregator = eventAggregator;
-
+            this.plVM = plVM;
             SelectedItemEvent audioSelected = eventAggregator.GetEvent<SelectedItemEvent>();
             subscriptionToken = audioSelected.Subscribe((audio) => CurrentAudio = audio, ThreadOption.UIThread, false, (audio) => true);
         }
@@ -63,7 +65,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         #region Commands
 
-        public ICommand PlayPauseCommand => this.playPauseCommand ?? (this.playPauseCommand = new DelegateCommand(PlayPause,()=>CurrentAudio!=null));
+        public ICommand PlayPauseCommand => this.playPauseCommand ?? (this.playPauseCommand = new DelegateCommand(PlayPause));
         public ICommand PrevAudioCommand => this.prevAudioCommand ?? (this.prevAudioCommand = new DelegateCommand(ToPrevAudio));
         public ICommand NextAudioCommand => this.nextAudioCommand ?? (this.nextAudioCommand = new DelegateCommand(ToNextAuido));
         public ICommand StopCommand => this.stopCommand ?? (this.stopCommand = new DelegateCommand(Stop));
