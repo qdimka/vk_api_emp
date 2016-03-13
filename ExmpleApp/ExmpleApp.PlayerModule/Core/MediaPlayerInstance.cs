@@ -10,18 +10,18 @@ using System.Windows.Controls;
 
 namespace ExmpleApp.PlayerModule.Core
 {
-    [Export(typeof(IMediaElement))]
-    public class MediaElementInstance : IMediaElement
+    [Export(typeof(IMediaPlayer))]
+    public class MediaElementInstance : IMediaPlayer
     {
-        private readonly MediaElement instance;
+        private readonly MediaPlayer instance;
 
         public MediaElementInstance()
         {
-            instance = new MediaElement();
-            instance.LoadedBehavior = MediaState.Manual;
+            instance = new MediaPlayer();
+            //instance.LoadedBehavior = MediaState.Manual;
         }
 
-        public MediaElement Instance => instance;
+        public MediaPlayer Instance => instance;
 
     }
 }

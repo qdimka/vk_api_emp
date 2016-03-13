@@ -3,79 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:prism="http://www.codeplex.com/prism"
-             xmlns:bhv="clr-namespace:ExmpleApp.PlayerModule.Behaviors"
-             xmlns:c="clr-namespace:ExmpleApp.PlayerModule.Converters"
              xmlns:local="clr-namespace:ExmpleApp.PlayerModule.Views"
+             xmlns:b="clr-namespace:ExmpleApp.PlayerModule.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-
-    <UserControl.Resources>
-        <c:GetShortUrl x:Key="GetShortUrl"/>
-    </UserControl.Resources>
-
-    <Grid  x:Name="Root">
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-
-        <Button Command="{Binding GetPopularMusic}"
-                    Content="Популярное"
-                    Width="Auto"
-                    Grid.Column="0"
-                    Margin="2"/>
-
-        <Button Command="{Binding GetRecommendMusic}"
-                    Content="Рекомендации"
-                    Width="Auto"
-                    Grid.Column="1"
-                    Margin="2"/>
-
-        <Button Command="{Binding GetMusicByUser}"
-                    Content="Мои аудио"
-                    Grid.Column="2"
-                    Margin="2"/>
-
-
-        <ListView ItemsSource="{Binding Music}"
+    <Grid>
+        <ListView ItemsSource="{Binding PlayList}"
                   Grid.Row="2"
                   Grid.ColumnSpan="3"
                   Name="lst"
-                  bhv:SelectorSelectionChanged.Command="{Binding SelectItem}">
-            
+                  b:SelectorSelectionChanged.Command="{Binding SelectItem}"
+                  b:AttachedCommandBehavior.RoutedEventName="MouseDoubleClick"
+                  b:AttachedCommandBehavior.TheCommandToRun="{Binding PlayCommand,Mode=OneWay}"
+                  SelectedItem="{Binding SelectedAudio}"
+                  >
+
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="Bisque" BorderThickness="2" Margin="10">
                         <StackPanel Margin="10">
                             <TextBlock Text="{Binding Title}" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Url,Converter={StaticResource GetShortUrl}}" />
+                            <TextBlock Text="{Binding Url}" />
                             <TextBlock Text="{Binding Artist}" FontWeight="Bold" Margin="10,0"/>
                         </StackPanel>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
-
-        <TextBox Grid.Row="1"
-                 Grid.ColumnSpan="3"
-                 Margin="10"
-                 Text="{Binding SearchQuery,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged" >
-                    <i:InvokeCommandAction Command="{Binding GetSearchMusic}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </TextBox>
     </Grid>
 </UserControl>

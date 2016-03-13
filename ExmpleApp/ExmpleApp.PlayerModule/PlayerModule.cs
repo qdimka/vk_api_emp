@@ -22,7 +22,7 @@ namespace ExmpleApp.PlayerModule
         {
             this.regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(PlayListView));
 
-            this.regionManager.RegisterViewWithRegion(RegionNames.PlayerRegion, typeof(CurrentItemView));
+            this.regionManager.RegisterViewWithRegion(RegionNames.PlayerRegion, typeof(PlayerControlView));
         }
     }
 }

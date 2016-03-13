@@ -8,8 +8,8 @@ using System.Windows.Media;
 
 namespace ExmpleApp.PlayerModule.Interfaces
 {
-    public interface IMediaElement
+    public interface IMediaPlayer
     {
-        MediaElement Instance { get;}
+        MediaPlayer Instance { get;}
     }
 }

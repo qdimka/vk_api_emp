@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ExmpleApp.PlayerModule.Views.CurrentItemView"
+﻿<UserControl x:Class="ExmpleApp.PlayerModule.Views.PlayerControlView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,18 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
+        <StackPanel Orientation="Vertical">
             <TextBlock Text="{Binding CurrentAudio.Title}"/>
+            <Button Command="{Binding PlayPauseCommand}">Play</Button>
         </StackPanel>
-        <Button Command="{Binding PlayCommand}"
-                Grid.Row="1" Content="play"></Button>
-
-        <ContentControl Content="{Binding Media}"></ContentControl>
-        
     </Grid>
 </UserControl>

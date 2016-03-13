@@ -20,6 +20,7 @@ namespace ExmpleApp.PlayerModule.Views
     /// <summary>
     /// Логика взаимодействия для PlayListView.xaml
     /// </summary>
+    /// 
     [Export(typeof(PlayListView))]
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public partial class PlayListView : UserControl
@@ -35,6 +36,5 @@ namespace ExmpleApp.PlayerModule.Views
             get { return this.DataContext as PlayListViewModel; }
             set { this.DataContext = value; }
         }
-
     }
 }

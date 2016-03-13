@@ -18,22 +18,22 @@ using System.Windows.Shapes;
 namespace ExmpleApp.PlayerModule.Views
 {
     /// <summary>
-    /// Логика взаимодействия для CurrentItemView.xaml
+    /// Логика взаимодействия для PlayerControlView.xaml
     /// </summary>
-    [Export(typeof(CurrentItemView))]
+    [Export(typeof(PlayerControlView))]
     [PartCreationPolicy(CreationPolicy.NonShared)]
-    public partial class CurrentItemView : UserControl
+    public partial class PlayerControlView : UserControl
     {
-        public CurrentItemView()
+        public PlayerControlView()
         {
             InitializeComponent();
         }
-
         [Import]
-        public CurrentItemViewModel ViewModel
+        public PlayerControlViewModel ViewModel
         {
-            get { return this.DataContext as CurrentItemViewModel; }
+            get { return this.DataContext as PlayerControlViewModel; }
             set { this.DataContext = value; }
         }
+
     }
 }

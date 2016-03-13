@@ -1,7 +1,6 @@
 ﻿using ExmpleApp.Infrastructure.SharedServices;
-using ExmpleApp.PlayerModule.Core;
+using ExmpleApp.PlayerModule.Interfaces;
 using Prism.Commands;
-using Prism.Events;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -12,6 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using VkNet.Model.Attachments;
+using ExmpleApp.PlayerModule.Helpers;
+using Prism.Events;
+using ExmpleApp.PlayerModule.Core;
 
 namespace ExmpleApp.PlayerModule.ViewModels
 {
@@ -19,97 +21,93 @@ namespace ExmpleApp.PlayerModule.ViewModels
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PlayListViewModel : BindableBase
     {
+        #region Interfaces
+
         private IEventAggregator eventAggregator;
         private IVkAudioServiceAsync audioService;
-        private IVkApi api;
+        private IMediaPlayer mediaPlayer;
+        private ICommand selectItem;
+        private ICommand playCommand;
 
-        private ObservableCollection<Audio> music;
-        private string query;
+        #endregion
+        
+        #region Private
+
+        private ObservableCollection<Audio> playList;
+
+        private Audio selectedAudio;
+
+        #endregion
 
         [ImportingConstructor]
         public PlayListViewModel(IVkAudioServiceAsync audioService,
-                                 IVkApi api,
+                                 IMediaPlayer mediaPlayer,
                                  IEventAggregator eventAggregator)
         {
-            this.eventAggregator = eventAggregator;
-            this.api = api;
             this.audioService = audioService;
-            Task.Run(() => GetUserMusicAsync());
+            this.mediaPlayer = mediaPlayer;
+            this.eventAggregator = eventAggregator;
 
-            SelectItem = new DelegateCommand<Audio>(OnItemSelected);
+            Task.Run(() => GetPopularAsync());
         }
 
-        public ObservableCollection<Audio> Music
+        #region Properties
+
+        public ObservableCollection<Audio> PlayList
         {
-            get { return this.music; }
+            get { return this.playList; }
             set
             {
-                this.SetProperty(ref this.music, value);
+                this.SetProperty(ref this.playList, value);
             }
         }
 
-        public String SearchQuery
-        {
-            get { return this.query; }
-            set
-            {
-                this.SetProperty(ref this.query, value);
-            }
-        }
-
-
-        public DelegateCommand GetPopularMusic => DelegateCommand.FromAsyncHandler(GetPopularAsync);
-
-        public DelegateCommand GetRecommendMusic => DelegateCommand.FromAsyncHandler(GetRecommendAsync);
-
-        public DelegateCommand GetSearchMusic => DelegateCommand.FromAsyncHandler(GetSearchAsync);
-
-        public DelegateCommand GetMusicByUser => DelegateCommand.FromAsyncHandler(GetUserMusicAsync);
-
-        private async Task GetPopularAsync()
-        {
-            Music = await this.audioService.GetPopularMusicAsync();
-        }
-
-        private async Task GetRecommendAsync()
-        {
-            Music = await this.audioService.GetRecommendMusicAsync();
-        }
-
-        private async Task GetSearchAsync()
-        {
-            Music = await this.audioService.GetSearchMusicResultsAsync(SearchQuery);
-        }
-
-        private async Task GetUserMusicAsync()
-        {
-            Music = await this.audioService.GetMusicByUserIdAsync(api.Instance.UserId);
-        }
-
-
-        //Выбранное в listview
-        private Audio selectedAudio;
-
-        public Audio SelectedAudio
+        public Audio CurrentPlayAudio
         {
             get { return this.selectedAudio; }
             set
             {
                 this.SetProperty(ref this.selectedAudio, value);
+                eventAggregator.GetEvent<SelectedItemEvent>().Publish(this.selectedAudio);
             }
         }
 
-        public ICommand SelectItem { get; private set; }
+        #endregion
+
+        #region Commands
+
+        public DelegateCommand GetPopularMusic => DelegateCommand.FromAsyncHandler(GetPopularAsync);
+
+        public ICommand SelectItem => this.selectItem ?? (this.selectItem = new DelegateCommand<Audio>(OnItemSelected));
+
+        public ICommand PlayCommand => this.playCommand ?? (this.playCommand = new DelegateCommand(Play,()=>this.selectedAudio!=null));
+
+        #endregion
+
+        #region Methods
+
+        private async Task GetPopularAsync()
+        {
+            PlayList = await this.audioService.GetPopularMusicAsync();
+        }
 
         private void OnItemSelected(Audio obj)
         {
             if (obj == null)
                 return;
 
-            SelectedAudio = obj;
-
-            eventAggregator.GetEvent<SelectedItemEvent>().Publish(obj);
+            this.selectedAudio = obj;
         }
+
+        private void Play()
+        {
+            CurrentPlayAudio = this.selectedAudio;
+            mediaPlayer.Instance.Open(new Uri(GetNoHttpsUrl.Get(this.CurrentPlayAudio.Url.ToString()), UriKind.Absolute));
+            mediaPlayer.Instance.Play();
+        }
+
+        #endregion
+
 
     }
 }
