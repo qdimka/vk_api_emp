@@ -15,7 +15,7 @@
                   b:SelectorSelectionChanged.Command="{Binding SelectItem}"
                   b:AttachedCommandBehavior.RoutedEventName="MouseDoubleClick"
                   b:AttachedCommandBehavior.TheCommandToRun="{Binding PlayCommand,Mode=OneWay}"
-                  SelectedItem="{Binding SelectedAudio}"
+                  SelectedItem="{Binding SelectedAudio, UpdateSourceTrigger=PropertyChanged}"
                   >
 
             <ListView.ItemTemplate>

@@ -18,7 +18,7 @@ using ExmpleApp.PlayerModule.Core;
 namespace ExmpleApp.PlayerModule.ViewModels
 {
     [Export]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
+    [PartCreationPolicy(CreationPolicy.Shared)]
     public class PlayListViewModel : BindableBase
     {
         #region Interfaces
@@ -36,6 +36,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         private ObservableCollection<Audio> playList;
         private Audio selectedAudio;
+        private Audio currentAudio;
         private string query;
 
         #endregion
@@ -51,7 +52,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
             this.eventAggregator = eventAggregator;
             this.api = api;
 
-            Task.Run(() => GetPopularAsync());
+            Task.Run(() => GetPopularAsync()).Wait();
         }
 
         #region Properties
@@ -67,11 +68,23 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         public Audio CurrentPlayAudio
         {
-            get { return this.selectedAudio; }
+            get { return this.currentAudio; }
+            set
+            {
+                this.SetProperty(ref this.currentAudio, value);
+                eventAggregator.GetEvent<SelectedItemEvent>().Publish(this.currentAudio);
+            }
+        }
+
+        public Audio SelectedAudio
+        {
+            get
+            {
+                return this.selectedAudio ?? PlayList.First();
+            }
             set
             {
                 this.SetProperty(ref this.selectedAudio, value);
-                eventAggregator.GetEvent<SelectedItemEvent>().Publish(this.selectedAudio);
             }
         }
 
@@ -94,8 +107,6 @@ namespace ExmpleApp.PlayerModule.ViewModels
         public DelegateCommand GetSearchMusic => DelegateCommand.FromAsyncHandler(GetSearchAsync);
 
         public DelegateCommand GetMusicByUser => DelegateCommand.FromAsyncHandler(GetUserMusicAsync);
-
-        public ICommand SelectItem => this.selectItem ?? (this.selectItem = new DelegateCommand<Audio>(OnItemSelected));
 
         public ICommand PlayCommand => this.playCommand ?? (this.playCommand = new DelegateCommand(Play,()=>this.selectedAudio!=null));
 
@@ -123,56 +134,54 @@ namespace ExmpleApp.PlayerModule.ViewModels
             PlayList = await this.audioService.GetMusicByUserIdAsync(api.Instance.UserId);
         }
 
-
-        private void OnItemSelected(Audio obj)
-        {
-            if (obj == null)
-                return;
-
-            this.selectedAudio = obj;
-        }
-
         private void Play()
         {
-            CurrentPlayAudio = this.selectedAudio;
-            mediaPlayer.Instance.Open(new Uri(GetNoHttpsUrl.Get(this.CurrentPlayAudio.Url.ToString()), UriKind.Absolute));
-            mediaPlayer.Instance.Play();
+            var audio = SelectedAudio;
+
+            if (audio != null)
+            {
+                //Делаем выбранный элемент текущим
+                CurrentPlayAudio = audio;
+
+                mediaPlayer.Instance.Open(new Uri(GetNoHttpsUrl.Get(CurrentPlayAudio.Url.ToString()), UriKind.Absolute));
+                mediaPlayer.Instance.Play();
+            }
         }
 
-        public Audio PrevAudio()
+        public Audio GetPrevAudio(Audio audio)
         {
             int oldIndex;
 
-            if (PlayList == null && selectedAudio == null)
+            if (PlayList == null && audio == null)
             {
                 return null;
             }
             else
             {
-                oldIndex = PlayList.IndexOf(selectedAudio);
+                oldIndex = PlayList.IndexOf(audio);
             }
 
             if (oldIndex - 1 <= 0) return PlayList.ElementAt(PlayList.Count - 1);
 
-            return PlayList.ElementAt(oldIndex - 1);
+            return audio = PlayList.ElementAt(oldIndex - 1);
         }
 
-        public Audio GetNextAudio()
+        public Audio GetNextAudio(Audio audio)
         {
             int oldIndex;
 
-            if (PlayList == null && selectedAudio == null)
+            if (PlayList == null && audio == null)
             {
                 return null;
             }
             else
             {
-                oldIndex = PlayList.IndexOf(selectedAudio);
+                oldIndex = PlayList.IndexOf(audio);
             }
 
-            if (oldIndex + 1 > PlayList.Count) return PlayList.First();
+            if (oldIndex + 1 >= PlayList.Count) return PlayList.First();
 
-            return PlayList.ElementAt(oldIndex + 1);
+            return audio = PlayList.ElementAt(oldIndex + 1);
         }
 
         #endregion

@@ -35,19 +35,24 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         private Audio currentAudio;
         private SubscriptionToken subscriptionToken;
-        private PlayListViewModel plVM;
+        private PlayListViewModel playListViewModel;
         #endregion
 
         [ImportingConstructor]
         public PlayerControlViewModel(IMediaPlayer mediaPlayer,
                                       IEventAggregator eventAggregator,
-                                      PlayListViewModel plVM)
+                                      PlayListViewModel playListViewModel)
         {
             this.mediaPlayer = mediaPlayer;
             this.eventAggregator = eventAggregator;
-            this.plVM = plVM;
+
+            //Нужно найти другой способ связать viewmodel
+            this.playListViewModel = playListViewModel;
+
             SelectedItemEvent audioSelected = eventAggregator.GetEvent<SelectedItemEvent>();
             subscriptionToken = audioSelected.Subscribe((audio) => CurrentAudio = audio, ThreadOption.UIThread, false, (audio) => true);
+
+            this.mediaPlayer.Instance.MediaEnded += (s,e) => { this.ToNextAudio(); };
         }
 
         #region Properties
@@ -67,7 +72,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         public ICommand PlayPauseCommand => this.playPauseCommand ?? (this.playPauseCommand = new DelegateCommand(PlayPause));
         public ICommand PrevAudioCommand => this.prevAudioCommand ?? (this.prevAudioCommand = new DelegateCommand(ToPrevAudio));
-        public ICommand NextAudioCommand => this.nextAudioCommand ?? (this.nextAudioCommand = new DelegateCommand(ToNextAuido));
+        public ICommand NextAudioCommand => this.nextAudioCommand ?? (this.nextAudioCommand = new DelegateCommand(ToNextAudio));
         public ICommand StopCommand => this.stopCommand ?? (this.stopCommand = new DelegateCommand(Stop));
 
         #endregion
@@ -76,23 +81,43 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         private void PlayPause()
         {
-            mediaPlayer.Instance.Open(new Uri(GetNoHttpsUrl.Get(this.CurrentAudio.Url.ToString()), UriKind.Absolute));
-            mediaPlayer.Instance.Play();
+            var audio = playListViewModel.SelectedAudio;
+            if (audio != null)
+            {
+                CurrentAudio = audio;
+
+                mediaPlayer.Instance.Open(new Uri(GetNoHttpsUrl.Get(audio.Url.ToString()), UriKind.Absolute));
+                mediaPlayer.Instance.Play();
+            }
         }
 
         private void ToPrevAudio()
         {
-            throw new NotImplementedException();
+            var audio = playListViewModel.GetPrevAudio(CurrentAudio);
+            if (audio != null)
+            {
+                CurrentAudio = audio;
+
+                mediaPlayer.Instance.Open(new Uri(GetNoHttpsUrl.Get(audio.Url.ToString()), UriKind.Absolute));
+                mediaPlayer.Instance.Play();
+            }
         }
 
-        private void ToNextAuido()
+        private void ToNextAudio()
         {
-            throw new NotImplementedException();
+            var audio = playListViewModel.GetNextAudio(CurrentAudio);
+            if (audio != null)
+            {
+                CurrentAudio = audio;
+
+                mediaPlayer.Instance.Open(new Uri(GetNoHttpsUrl.Get(audio.Url.ToString()), UriKind.Absolute));
+                mediaPlayer.Instance.Play();
+            }
         }
 
         private void Stop()
         {
-            throw new NotImplementedException();
+            mediaPlayer.Instance.Stop();
         }
 
         #endregion

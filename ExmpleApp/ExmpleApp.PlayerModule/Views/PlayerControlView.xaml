@@ -9,7 +9,12 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <TextBlock Text="{Binding CurrentAudio.Title}"/>
-            <Button Command="{Binding PlayPauseCommand}">Play</Button>
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding PrevAudioCommand}">Prev</Button>
+                <Button Command="{Binding PlayPauseCommand}">Play</Button>
+                <Button Command="{Binding NextAudioCommand}">Next</Button>
+                <Button Command="{Binding StopCommand}">Stop</Button>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>
