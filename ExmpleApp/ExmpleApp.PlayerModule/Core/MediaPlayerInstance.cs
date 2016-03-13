@@ -6,19 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Controls;
 
 namespace ExmpleApp.PlayerModule.Core
 {
-    [Export(typeof(IMediaPlayer))]
-    public class MediaPlayerInstance : IMediaPlayer
+    [Export(typeof(IMediaElement))]
+    public class MediaElementInstance : IMediaElement
     {
-        private readonly MediaPlayer player;
+        private readonly MediaElement instance;
 
-        public MediaPlayerInstance()
+        public MediaElementInstance()
         {
-            player = new MediaPlayer();
+            instance = new MediaElement();
+            instance.LoadedBehavior = MediaState.Manual;
         }
 
-        public MediaPlayer Player => player;
+        public MediaElement Instance => instance;
+
     }
 }

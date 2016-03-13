@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -16,5 +17,8 @@
         </StackPanel>
         <Button Command="{Binding PlayCommand}"
                 Grid.Row="1" Content="play"></Button>
+
+        <ContentControl Content="{Binding Media}"></ContentControl>
+        
     </Grid>
 </UserControl>

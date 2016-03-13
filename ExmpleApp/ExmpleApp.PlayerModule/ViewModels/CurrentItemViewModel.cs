@@ -9,7 +9,9 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using VkNet.Model.Attachments;
 
 namespace ExmpleApp.PlayerModule.ViewModels
@@ -18,19 +20,19 @@ namespace ExmpleApp.PlayerModule.ViewModels
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public class CurrentItemViewModel:BindableBase
     {
-        private IMediaPlayer player;
+        private IMediaElement player;
         private IEventAggregator eventAggregator;
 
         private readonly DelegateCommand play;
         private readonly DelegateCommand prev;
         private readonly DelegateCommand next;
         private readonly DelegateCommand stop;
-
+        MediaPlayer pl = new MediaPlayer();
         private Audio currentAudio;
         private SubscriptionToken subscriptionToken;
 
         [ImportingConstructor]
-        public CurrentItemViewModel(IMediaPlayer player,
+        public CurrentItemViewModel(IMediaElement player,
                                     IEventAggregator eventAggregator)
         {
             this.player = player;
@@ -43,6 +45,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
             SelectedItemEvent audioSelected = eventAggregator.GetEvent<SelectedItemEvent>();
             subscriptionToken = audioSelected.Subscribe(OnChangeSelected, ThreadOption.UIThread, false, (shopOrder) => true);
+
         }
 
         private void OnChangeSelected(Audio obj)
@@ -57,9 +60,10 @@ namespace ExmpleApp.PlayerModule.ViewModels
             set
             {
                 this.SetProperty(ref this.currentAudio, value);
-                this.OnPropertyChanged(() => CurrentAudio);
             }
         }
+
+        public MediaElement Media => player.Instance;
 
         public ICommand PlayCommand => play;
         public ICommand PrevCommand => prev;
@@ -68,7 +72,8 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         private void Play()
         {
-            player.Player.Open(CurrentAudio.Url);
+            Media.Source = new Uri(NoHttps(CurrentAudio.Url.ToString()), UriKind.Absolute);
+            Media.Play();
         }
 
         private void Prev()
@@ -84,6 +89,18 @@ namespace ExmpleApp.PlayerModule.ViewModels
         private void Stop()
         {
 
+        }
+
+        public string NoHttps(string uri)
+        {
+            string temp = uri;
+
+            if(uri.Contains("https"))
+            {
+                temp = uri.Remove(uri.IndexOf('s'), 1);
+            }
+
+            return temp.Substring(0, uri.IndexOf('?')-1);
         }
     }
 }

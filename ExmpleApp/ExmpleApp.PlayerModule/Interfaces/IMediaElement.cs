@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ExmpleApp.PlayerModule.Interfaces
 {
-    public interface IMediaPlayer
+    public interface IMediaElement
     {
-        MediaPlayer Player { get;}
+        MediaElement Instance { get;}
     }
 }

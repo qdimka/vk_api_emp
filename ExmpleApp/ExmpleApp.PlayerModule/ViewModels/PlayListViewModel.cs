@@ -45,7 +45,6 @@ namespace ExmpleApp.PlayerModule.ViewModels
             set
             {
                 this.SetProperty(ref this.music, value);
-                this.OnPropertyChanged(() => Music);
             }
         }
 
@@ -55,7 +54,6 @@ namespace ExmpleApp.PlayerModule.ViewModels
             set
             {
                 this.SetProperty(ref this.query, value);
-                this.OnPropertyChanged(() => SearchQuery);
             }
         }
 
@@ -98,11 +96,10 @@ namespace ExmpleApp.PlayerModule.ViewModels
             set
             {
                 this.SetProperty(ref this.selectedAudio, value);
-                this.OnPropertyChanged(()=>SelectedAudio);
             }
         }
 
-        public ICommand SelectItem { get; set; }
+        public ICommand SelectItem { get; private set; }
 
         private void OnItemSelected(Audio obj)
         {
