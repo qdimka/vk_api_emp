@@ -19,6 +19,7 @@
                 <Button Command="{Binding NextAudioCommand}">Next</Button>
                 <Button Command="{Binding StopCommand}">Stop</Button>
             </StackPanel>
+
         </StackPanel>
 
     </Grid>
