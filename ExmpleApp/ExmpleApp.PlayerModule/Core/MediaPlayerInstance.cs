@@ -10,9 +10,9 @@ using System.Windows.Controls;
 
 namespace ExmpleApp.PlayerModule.Core
 {
-    [Export(typeof(IMediaPlayer))]
-    public class MediaPlayerInstance : IMediaPlayer
-    {
+    [Export]
+    public class MediaPlayerInstance
+    { 
         private readonly MediaPlayer instance;
 
         public MediaPlayerInstance()

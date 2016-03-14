@@ -72,6 +72,16 @@ namespace ExmpleApp.PlayerModule.ViewModels
             get { return this.mediaPlayer.Instance; }
         }
 
+        public double Volume
+        {
+            get { return this.mediaPlayer.Instance.Volume; }
+            set
+            {
+                this.mediaPlayer.Instance.Volume = value;
+                this.OnPropertyChanged(() => Volume);
+            }
+        }
+
         #endregion
 
         #region Commands
