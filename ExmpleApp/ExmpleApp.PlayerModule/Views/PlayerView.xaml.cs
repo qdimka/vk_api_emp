@@ -18,22 +18,22 @@ using System.Windows.Shapes;
 namespace ExmpleApp.PlayerModule.Views
 {
     /// <summary>
-    /// Логика взаимодействия для PlayListView.xaml
+    /// Логика взаимодействия для PlayerView.xaml
     /// </summary>
-    /// 
-    [Export(typeof(PlayListView))]
+    
+    [Export(typeof(PlayerView))]
     [PartCreationPolicy(CreationPolicy.NonShared)]
-    public partial class PlayListView : UserControl
+    public partial class PlayerView : UserControl
     {
-        public PlayListView()
+        public PlayerView()
         {
             InitializeComponent();
         }
 
         [Import]
-        public PlayListViewModel ViewModel
+        public PlayerViewModel ViewModel
         {
-            get { return this.DataContext as PlayListViewModel; }
+            get { return this.DataContext as PlayerViewModel; }
             set { this.DataContext = value; }
         }
     }

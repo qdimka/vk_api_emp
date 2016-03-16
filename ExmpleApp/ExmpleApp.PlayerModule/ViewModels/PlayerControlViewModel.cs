@@ -16,8 +16,6 @@ using VkNet.Model.Attachments;
 
 namespace ExmpleApp.PlayerModule.ViewModels
 {
-    [Export]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PlayerControlViewModel : BindableBase
     {
         #region Interfaces

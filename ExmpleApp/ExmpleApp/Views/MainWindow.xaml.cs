@@ -51,7 +51,6 @@ namespace ExmpleApp.Views
                         this.RegionManager.RequestNavigate(RegionNames.MainRegion, LoginViewUri);
                     }
                 };
-            //this.RegionManager.RequestNavigate(RegionNames.MainRegion, LoginViewUri);
         }
     }
 }

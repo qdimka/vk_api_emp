@@ -20,9 +20,7 @@ namespace ExmpleApp.PlayerModule
 
         public void Initialize()
         {
-            this.regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(PlayListView));
-
-            this.regionManager.RegisterViewWithRegion(RegionNames.PlayerRegion, typeof(PlayerControlView));
+            this.regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(PlayerView));
         }
     }
 }

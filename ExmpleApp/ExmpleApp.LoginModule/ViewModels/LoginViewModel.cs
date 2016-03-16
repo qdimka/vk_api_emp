@@ -26,7 +26,7 @@ namespace ExmpleApp.LoginModule.ViewModels
         [Import(AllowRecomposition = false)]
         public IModuleManager ModuleManager;
 
-        private const string playListView = "PlayListView";
+        private const string playListView = "PlayerView";
 
         private static Uri PlayListViewUrl = new Uri(playListView, UriKind.Relative);
         private LoginModel login;

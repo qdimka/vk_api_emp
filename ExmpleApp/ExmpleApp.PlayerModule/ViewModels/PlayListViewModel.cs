@@ -17,8 +17,6 @@ using ExmpleApp.PlayerModule.Core;
 
 namespace ExmpleApp.PlayerModule.ViewModels
 {
-    [Export]
-    [PartCreationPolicy(CreationPolicy.Shared)]
     public class PlayListViewModel : BindableBase
     {
         #region Interfaces
@@ -40,7 +38,6 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         #endregion
 
-        [ImportingConstructor]
         public PlayListViewModel(IVkAudioServiceAsync audioService,
                                  IMediaElement mediaPlayer,
                                  IEventAggregator eventAggregator,
@@ -51,7 +48,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
             this.eventAggregator = eventAggregator;
             this.api = api;
 
-            Task.Run(() => GetPopularAsync()).Wait();
+            Task.Run(() => GetUserMusicAsync()).Wait();
         }
 
         #region Properties
