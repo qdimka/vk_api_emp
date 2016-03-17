@@ -7,6 +7,11 @@
 
             <ResourceDictionary.MergedDictionaries>
 
+                <ResourceDictionary Source="pack://application:,,,/ExmpleApp.PlayerModule;component/Controls/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ExmpleApp.PlayerModule;component/Controls/Icons.xaml" />
+                <!--<ResourceDictionary Source="pack://application:,,,/ExmpleApp.PlayerModule;component/Controls/Fonts.xaml" />-->
+
+
                 <!-- MahApps -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />

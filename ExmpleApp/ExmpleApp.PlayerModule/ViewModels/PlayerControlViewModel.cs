@@ -40,13 +40,13 @@ namespace ExmpleApp.PlayerModule.ViewModels
         [ImportingConstructor]
         public PlayerControlViewModel(IMediaElement mediaPlayer,
                                       IEventAggregator eventAggregator,
-                                      PlayListViewModel playListViewModel)
+                                      PlayerViewModel playerViewModel)
         {
             this.mediaPlayer = mediaPlayer;
             this.eventAggregator = eventAggregator;
 
             //Нужно найти другой способ связать viewmodel
-            this.playListViewModel = playListViewModel;
+            this.playListViewModel = playerViewModel.PlayListViewModel;
 
             SelectedItemEvent audioSelected = eventAggregator.GetEvent<SelectedItemEvent>();
             subscriptionToken = audioSelected.Subscribe((audio) => CurrentAudio = audio, ThreadOption.UIThread, false, (audio) => true);

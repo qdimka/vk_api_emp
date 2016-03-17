@@ -15,9 +15,26 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid x:Name="playListGrid">
-        <ContentControl Margin="5"
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid x:Name="controlGrid"
+              Grid.Row="0">
+            <local:PlayControlView x:Name="playControlView"
+                               HorizontalAlignment="Center"
+                               DataContext="{Binding PlayerControlViewModel, Mode=OneTime}" />
+        </Grid>
+
+
+        <Grid x:Name="playListGrid"
+              Grid.Row="1">
+            <ContentControl Margin="5"
                         Style="{StaticResource PlaylistViewStyle}"
                         Content="{Binding PlayListViewModel, Mode=OneTime}" />
+        </Grid>
     </Grid>
 </UserControl>

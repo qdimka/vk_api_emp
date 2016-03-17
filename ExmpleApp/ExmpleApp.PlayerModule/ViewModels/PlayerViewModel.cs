@@ -24,8 +24,11 @@ namespace ExmpleApp.PlayerModule.ViewModels
                                IVkApi api)
         {
             this.PlayListViewModel = new PlayListViewModel(audioService, mediaPlayer, eventAggregator, api);
+            this.PlayerControlViewModel = new PlayerControlViewModel(mediaPlayer, eventAggregator, this);
         }
 
         public PlayListViewModel PlayListViewModel { get; private set; }
+
+        public PlayerControlViewModel PlayerControlViewModel { get; private set; }
     }
 }

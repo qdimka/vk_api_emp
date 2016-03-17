@@ -3,6 +3,8 @@
 
     <!-- icons taken from MahApps resources -->
 
+
+
     <Canvas Width="48"
             Height="48"
             Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0"
