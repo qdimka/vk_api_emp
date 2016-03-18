@@ -1,34 +1,28 @@
-﻿using ExmpleApp.Infrastructure.SharedServices;
-using ExmpleApp.PlayerModule.Interfaces;
-using Prism.Events;
-using Prism.Mvvm;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace ExmpleApp.PlayerModule.ViewModels
 {
     [Export]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public class PlayerViewModel:BindableBase
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    public class PlayerViewModel
     {
-
-        [ImportingConstructor]
-        public PlayerViewModel(IVkAudioServiceAsync audioService,
-                               IMediaElement mediaPlayer,
-                               IEventAggregator eventAggregator,
-                               IVkApi api)
+        public PlayerViewModel()
         {
-            this.PlayListViewModel = new PlayListViewModel(audioService, mediaPlayer, eventAggregator, api);
-            this.PlayerControlViewModel = new PlayerControlViewModel(mediaPlayer, eventAggregator, this);
+            this.PlayListViewModel = new PlayListViewModel();
+            this.PlayerControlViewModel = new PlayerControlViewModel();
+            this.MediaViewModel = new MediaViewModel();
         }
 
         public PlayListViewModel PlayListViewModel { get; private set; }
 
         public PlayerControlViewModel PlayerControlViewModel { get; private set; }
+
+        public MediaViewModel MediaViewModel { get; private set; }
+
     }
 }
