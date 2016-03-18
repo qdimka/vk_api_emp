@@ -15,11 +15,13 @@ namespace ExmpleApp.PlayerModule.Interfaces
 
         TimeSpan Position { get; }
 
-        bool IsPause { get; }
+        bool CanPause { get; }
 
         void Play(Audio obj);
 
         void Stop();
+
+        void Pause();
 
         void AudioEnd(EventHandler handler);
     }

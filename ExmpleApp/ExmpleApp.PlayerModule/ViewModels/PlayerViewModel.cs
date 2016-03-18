@@ -14,7 +14,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
         public PlayerViewModel()
         {
             this.PlayListViewModel = new PlayListViewModel();
-            this.PlayerControlViewModel = new PlayerControlViewModel();
+            this.PlayerControlViewModel = new PlayerControlViewModel(this);
             this.MediaViewModel = new MediaViewModel();
         }
 
