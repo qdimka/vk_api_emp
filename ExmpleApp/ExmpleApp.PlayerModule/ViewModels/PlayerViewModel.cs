@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ExmpleApp.Infrastructure.SharedServices;
+using ExmpleApp.PlayerModule.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -11,10 +13,14 @@ namespace ExmpleApp.PlayerModule.ViewModels
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PlayerViewModel
     {
-        public PlayerViewModel()
+
+        [ImportingConstructor]
+        public PlayerViewModel(IVkAudioServiceAsync audioService,
+                               IMediaPlayer mediaPlayer,
+                               IVkApi api)
         {
-            this.PlayListViewModel = new PlayListViewModel();
-            this.PlayerControlViewModel = new PlayerControlViewModel(this);
+            this.PlayListViewModel = new PlayListViewModel(audioService, mediaPlayer, api);
+            this.PlayerControlViewModel = new PlayerControlViewModel(this,mediaPlayer);
             this.MediaViewModel = new MediaViewModel();
         }
 

@@ -24,5 +24,10 @@ namespace ExmpleApp.PlayerModule.Views
         {
             InitializeComponent();
         }
+
+        private void PlayListView_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

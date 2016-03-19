@@ -16,11 +16,8 @@ namespace ExmpleApp.PlayerModule.ViewModels
 {
     public class PlayListViewModel:BindableBase
     {
-        [Import]
         private IVkAudioServiceAsync audioService;
-        [Import]
         private IMediaPlayer player;
-        [Import]
         private IVkApi api;
 
         private ICommand playCommand;
@@ -33,8 +30,15 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         #endregion
 
-        public PlayListViewModel()
+        public PlayListViewModel(IVkAudioServiceAsync audioService,
+                                 IMediaPlayer mediaPlayer,
+                                 IVkApi api)
         {
+            this.audioService = audioService;
+            this.api = api;
+            this.player = mediaPlayer;
+
+
             Task.Run(() => GetUserMusicAsync()).Wait();
         }
 

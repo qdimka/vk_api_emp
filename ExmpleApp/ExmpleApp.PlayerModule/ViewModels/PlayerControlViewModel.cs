@@ -13,7 +13,6 @@ namespace ExmpleApp.PlayerModule.ViewModels
 {
     public class PlayerControlViewModel:BindableBase
     {
-        [Import]
         private IMediaPlayer player;
 
         private PlayListViewModel playListViewModel;
@@ -22,8 +21,9 @@ namespace ExmpleApp.PlayerModule.ViewModels
         private ICommand nextAudioCommand;
         private ICommand stopCommand;
 
-        public PlayerControlViewModel(PlayerViewModel playerViewModel)
+        public PlayerControlViewModel(PlayerViewModel playerViewModel, IMediaPlayer player)
         {
+            this.player = player;
             this.playListViewModel = playerViewModel.PlayListViewModel;
 
             Player.AudioEnd((s,e) => this.ToNextAudio());

@@ -6,7 +6,35 @@
              xmlns:local="clr-namespace:ExmpleApp.PlayerModule.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="PlayListTemplate.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="0"
+              Grid.Row="1"
+              Margin="5">
+            <local:PlayerControlView x:Name="playControlView"
+                                     HorizontalAlignment="Center"
+                                     DataContext="{Binding Path=PlayerControlViewModel, Mode=OneTime}" />
+        </Grid>
+
+        <Grid x:Name="playListGrid"
+              Grid.Row="2">
+            <ContentControl Margin="5"
+                        Style="{StaticResource PlaylistViewStyle}"
+                        Content="{Binding PlayListViewModel, Mode=OneTime}" />
+        </Grid>
+
     </Grid>
 </UserControl>
