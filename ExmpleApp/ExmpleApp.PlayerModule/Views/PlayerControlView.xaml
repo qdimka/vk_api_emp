@@ -6,6 +6,23 @@
              xmlns:local="clr-namespace:ExmpleApp.PlayerModule.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+
+        <VisualBrush x:Key="PlayBrush"
+                     Stretch="Fill"
+                     Visual="{StaticResource appbar_play}" />
+        <VisualBrush x:Key="PauseBrush"
+                     Stretch="Fill"
+                     Visual="{StaticResource appbar_pause}" />
+        <VisualBrush x:Key="MuteBrush"
+                     Stretch="Fill"
+                     Visual="{StaticResource appbar_sound_mute}" />
+        <VisualBrush x:Key="VolumeBrush"
+                     Stretch="Fill"
+                     Visual="{StaticResource appbar_sound_3}" />
+    </UserControl.Resources>
+    
+    
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -22,7 +39,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Button Grid.Column="1"
+        <!--<Button Grid.Column="1"
                 Style="{DynamicResource MetroCircleButtonStyle}"
                 Height="48"
                 Width="48">
@@ -42,7 +59,7 @@
                 Width="60">
             <Rectangle Width="18" Height="23" StrokeThickness="7" RadiusY="2" RadiusX="2">
                 <Rectangle.Fill>
-                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_play}" />
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_play_new}" />
                 </Rectangle.Fill>
             </Rectangle>
         </Button>
@@ -67,7 +84,93 @@
                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_stop}" />
                 </Rectangle.Fill>
             </Rectangle>
+        </Button>-->
+
+        <!-- prev -->
+        <Button Grid.Column="1"
+                Command="{Binding PlayPrevCommand, Mode=OneWay}"
+                ToolTip="Previous File (k)"
+                VerticalAlignment="Center"
+                Style="{DynamicResource MetroCircleButtonStyle}"
+                Height="45"
+                Width="45">
+            <Rectangle Width="13"
+                       Height="13">
+                <Rectangle.Fill>
+                    <VisualBrush Stretch="Fill"
+                                 Visual="{StaticResource appbar_fastforward}" />
+                </Rectangle.Fill>
+                <Rectangle.LayoutTransform>
+                    <ScaleTransform ScaleX="-1" />
+                </Rectangle.LayoutTransform>
+            </Rectangle>
         </Button>
+
+        <!-- play/pause -->
+        <Grid Grid.Column="2">
+            <Button Command="{Binding PlayOrPauseCommand, Mode=OneWay}"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource MetroCircleButtonStyle}"
+                    Height="60"
+                    Width="60">
+                <Rectangle Width="13"
+                           Height="13">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Fill"
+                                     Visual="{StaticResource appbar_play}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+        </Grid>
+
+        <Grid Grid.Column="3"
+              VerticalAlignment="Center">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- stop -->
+            <Button Grid.Column="0"
+                    Command="{Binding StopCommand, Mode=OneWay}"
+                    ToolTip="Stop"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource MetroCircleButtonStyle}"
+                    Height="45"
+                    Width="45">
+                <Rectangle Width="13"
+                           Height="13">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Fill"
+                                     Visual="{StaticResource appbar_control_stop}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+
+            <!-- next -->
+            <Button Grid.Column="1"
+                    Command="{Binding PlayNextCommand, Mode=OneWay}"
+                    ToolTip="Next File (j)"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource MetroCircleButtonStyle}"
+                    Height="45"
+                    Width="45">
+                <Rectangle Width="13"
+                           Height="13">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Fill"
+                                     Visual="{StaticResource appbar_fastforward}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+
+        </Grid>
+
 
         <Grid Grid.Column="0"
               Grid.ColumnSpan="7"

@@ -11,6 +11,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="PlayListTemplate.xaml"/>
+                <ResourceDictionary Source="MediaViewTemplate.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -20,6 +21,13 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+        <Grid x:Name="MediaInfoField"
+              Grid.Row="0">
+            <ContentControl Style="{StaticResource MediaInfoStyle}"
+                            Content="{Binding PlayerControlViewModel.Player.CurrentPlay, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+
 
         <Grid Grid.Column="0"
               Grid.Row="1"

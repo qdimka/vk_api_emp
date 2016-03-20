@@ -52,6 +52,10 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="LoadingIndicators.WPF, Version=0.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LoadingIndicators.WPF.0.0.1\lib\LoadingIndicators.WPF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
@@ -116,17 +120,11 @@
     <Compile Include="ViewModels\PlayerControlViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="ViewModels\PlayListViewModel.cs" />
-    <Compile Include="Views\MediaView.xaml.cs">
-      <DependentUpon>MediaView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\PlayerControlView.xaml.cs">
       <DependentUpon>PlayerControlView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PlayerView.xaml.cs">
       <DependentUpon>PlayerView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PlayListView.xaml.cs">
-      <DependentUpon>PlayListView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -141,14 +139,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Resources\Entypo.ttf" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\Entypo-license.txt" />
+    <Content Include="Resources\WindowsIcons-license.txt" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\Icons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MediaView.xaml">
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MediaViewTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -157,10 +163,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PlayerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\PlayListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

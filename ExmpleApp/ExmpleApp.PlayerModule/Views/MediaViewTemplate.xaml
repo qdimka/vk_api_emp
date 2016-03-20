@@ -1,0 +1,34 @@
+﻿<ResourceDictionary  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                     xmlns:local="clr-namespace:ExmpleApp.PlayerModule.Views"
+                     xmlns:models="clr-namespace:VkNet.Model.Attachments;assembly=VkNet">
+
+    <DataTemplate x:Key="MediaInfoTemplate"
+                  DataType="{x:Type models:Audio}">
+            <Grid x:Name="RootGrid">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+            <TextBlock Text="{Binding Artist}"
+                       Grid.Row="0"/>
+
+            <TextBlock Text="{Binding Title}"
+                       Grid.Row="1"/>
+
+        </Grid>
+    </DataTemplate>
+
+    <Style x:Key="MediaInfoStyle"
+           TargetType="{x:Type ContentControl}">
+        <Setter Property="Focusable"
+                Value="False" />
+        <Setter Property="ContentTemplate"
+                Value="{StaticResource MediaInfoTemplate}" />
+    </Style>
+
+</ResourceDictionary>
