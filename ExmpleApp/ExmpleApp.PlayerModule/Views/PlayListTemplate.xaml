@@ -11,8 +11,18 @@
     <DataTemplate x:Key="PlaylistViewTemplate"
                   DataType="{x:Type ViewModels:PlayListViewModel}">
 
+
         <Grid x:Name="RootGrid">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            
+
             <ListView x:Name="PlayListView"
+                      Grid.Row="0"
                       ItemsSource="{Binding PlayList, Mode=OneWay}"
                       HorizontalContentAlignment="Stretch"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -44,22 +54,72 @@
                                                         <ColumnDefinition Width="*" />
                                                         <ColumnDefinition Width="0.5*" />
                                                         <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
                                                     </Grid.ColumnDefinitions>
 
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    
                                                     <TextBlock Grid.Column="0"
+                                                               Grid.ColumnSpan="2"
                                                                Margin="0,2,2,0"
                                                                TextTrimming="CharacterEllipsis"
                                                                Text="{Binding Path=Title, Mode=OneWay}" />
 
-                                                    <TextBlock Grid.Column="1"
+                                                    <TextBlock Grid.Column="0"
+                                                               Grid.Row="1"
+                                                               Grid.ColumnSpan="2"
                                                                Margin="0,2,2,0"
                                                                TextTrimming="CharacterEllipsis"
                                                                TextAlignment="Left"
                                                                Text="{Binding Path=Artist, Mode=OneWay}" />
 
                                                     <TextBlock Grid.Column="2"
+                                                               Grid.RowSpan="2"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"
                                                                Margin="0,2,0,2"
                                                                Text="{Binding Path=Duration, Mode=OneWay,Converter={StaticResource DurationToTimeSpan},StringFormat='{}{0:m\\:ss}'}" />
+
+                                                    <Grid Grid.Column="3"
+                                                          Grid.RowSpan="2"
+                                                          HorizontalAlignment="Center"
+                                                          VerticalAlignment="Center">
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <Button Grid.Column="0"
+                                                            Style="{DynamicResource MetroCircleButtonStyle}"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Height="30"
+                                                            Width="30">
+                                                        <Rectangle Width="16" Height="14" StrokeThickness="7">
+                                                            <Rectangle.Fill>
+                                                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_add}" />
+                                                            </Rectangle.Fill>
+                                                        </Rectangle>
+                                                        </Button>
+
+
+                                                        <Button Grid.Column="1"
+                                                            Style="{DynamicResource MetroCircleButtonStyle}"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Height="30"
+                                                            Width="30">
+                                                            <Rectangle Width="16" Height="14" StrokeThickness="7">
+                                                                <Rectangle.Fill>
+                                                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_add}" />
+                                                                </Rectangle.Fill>
+                                                            </Rectangle>
+                                                        </Button>
+                                                    </Grid>
                                                 </Grid>
                                             </DataTemplate>
                                         </ContentControl.ContentTemplate>
@@ -96,6 +156,15 @@
                       Width="{Binding ElementName=PlayListView, Path=VerticalScrollBarWidth, Mode=OneWay}"
                       Visibility="{Binding ElementName=PlayListView, Path=ScrollViewer.ComputedVerticalScrollBarVisibility, Mode=OneWay}" />
             </Grid>
+
+            <Expander Grid.Row="1"
+                      BorderBrush="White" 
+                      ExpandDirection="Down"
+                      Header="Поиск">
+                <TextBox></TextBox>
+            </Expander>
+
+
 
         </Grid>
 
