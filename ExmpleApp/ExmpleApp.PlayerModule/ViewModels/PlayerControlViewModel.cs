@@ -34,7 +34,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
         public IMediaPlayer Player
         {
             get { return player; }
-            private set { }
+            set { }
         }
 
         #endregion

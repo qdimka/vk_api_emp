@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:c="clr-namespace:ExmpleApp.PlayerModule.Converters"
              xmlns:local="clr-namespace:ExmpleApp.PlayerModule.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -20,6 +21,9 @@
         <VisualBrush x:Key="VolumeBrush"
                      Stretch="Fill"
                      Visual="{StaticResource appbar_sound_3}" />
+
+        <c:PositionTimespanToInteger x:Key="PositionTimespanToInteger"/>
+
     </UserControl.Resources>
     
     
@@ -86,9 +90,8 @@
             </Rectangle>
         </Button>-->
 
-        <!-- prev -->
         <Button Grid.Column="1"
-                Command="{Binding PlayPrevCommand, Mode=OneWay}"
+                Command="{Binding PrevAudioCommand, Mode=OneWay}"
                 ToolTip="Previous File (k)"
                 VerticalAlignment="Center"
                 Style="{DynamicResource MetroCircleButtonStyle}"
@@ -106,9 +109,8 @@
             </Rectangle>
         </Button>
 
-        <!-- play/pause -->
         <Grid Grid.Column="2">
-            <Button Command="{Binding PlayOrPauseCommand, Mode=OneWay}"
+            <Button Command="{Binding PlayPauseCommand, Mode=OneWay}"
                     VerticalAlignment="Center"
                     Style="{DynamicResource MetroCircleButtonStyle}"
                     Height="60"
@@ -135,7 +137,6 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <!-- stop -->
             <Button Grid.Column="0"
                     Command="{Binding StopCommand, Mode=OneWay}"
                     ToolTip="Stop"
@@ -154,7 +155,7 @@
 
             <!-- next -->
             <Button Grid.Column="1"
-                    Command="{Binding PlayNextCommand, Mode=OneWay}"
+                    Command="{Binding NextAudioCommand, Mode=OneWay}"
                     ToolTip="Next File (j)"
                     VerticalAlignment="Center"
                     Style="{DynamicResource MetroCircleButtonStyle}"
@@ -202,8 +203,10 @@
                         Width="150"
                         Height="5"
                         Margin="5,2,5,2"
-                        Orientation="Horizontal"/>
-
+                        Orientation="Horizontal"
+                        Maximum="{Binding Player.CurrentPlay.Duration, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        Value="{Binding Player.Position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PositionTimespanToInteger}}"/>
+                
                 <TextBlock Text="0.00"
                            Grid.Column="2"/>
 
@@ -224,6 +227,8 @@
                         Width="100"
                         Height="5"
                         Margin="5,2,5,2"
+                        Minimum="0" Maximum="1"
+                        Value="{Binding Player.Volume, Mode=TwoWay}"
                         Orientation="Horizontal"/>
 
             </Grid>

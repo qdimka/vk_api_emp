@@ -33,6 +33,7 @@
                 
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">
+                        
                         <GridView.ColumnHeaderContainerStyle>
                             <Style TargetType="{x:Type GridViewColumnHeader}">
                                 <Setter Property="Visibility"
@@ -57,69 +58,22 @@
                                                         <ColumnDefinition Width="Auto" />
                                                     </Grid.ColumnDefinitions>
 
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="Auto"/>
-                                                        <RowDefinition Height="Auto"/>
-                                                    </Grid.RowDefinitions>
-                                                    
                                                     <TextBlock Grid.Column="0"
-                                                               Grid.ColumnSpan="2"
                                                                Margin="0,2,2,0"
                                                                TextTrimming="CharacterEllipsis"
                                                                Text="{Binding Path=Title, Mode=OneWay}" />
 
-                                                    <TextBlock Grid.Column="0"
-                                                               Grid.Row="1"
-                                                               Grid.ColumnSpan="2"
+                                                    <TextBlock Grid.Column="1"
                                                                Margin="0,2,2,0"
                                                                TextTrimming="CharacterEllipsis"
                                                                TextAlignment="Left"
                                                                Text="{Binding Path=Artist, Mode=OneWay}" />
 
                                                     <TextBlock Grid.Column="2"
-                                                               Grid.RowSpan="2"
                                                                HorizontalAlignment="Center"
                                                                VerticalAlignment="Center"
                                                                Margin="0,2,0,2"
                                                                Text="{Binding Path=Duration, Mode=OneWay,Converter={StaticResource DurationToTimeSpan},StringFormat='{}{0:m\\:ss}'}" />
-
-                                                    <Grid Grid.Column="3"
-                                                          Grid.RowSpan="2"
-                                                          HorizontalAlignment="Center"
-                                                          VerticalAlignment="Center">
-
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto"/>
-                                                            <ColumnDefinition Width="Auto"/>
-                                                        </Grid.ColumnDefinitions>
-
-                                                        <Button Grid.Column="0"
-                                                            Style="{DynamicResource MetroCircleButtonStyle}"
-                                                            HorizontalAlignment="Center"
-                                                            VerticalAlignment="Center"
-                                                            Height="30"
-                                                            Width="30">
-                                                        <Rectangle Width="16" Height="14" StrokeThickness="7">
-                                                            <Rectangle.Fill>
-                                                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_add}" />
-                                                            </Rectangle.Fill>
-                                                        </Rectangle>
-                                                        </Button>
-
-
-                                                        <Button Grid.Column="1"
-                                                            Style="{DynamicResource MetroCircleButtonStyle}"
-                                                            HorizontalAlignment="Center"
-                                                            VerticalAlignment="Center"
-                                                            Height="30"
-                                                            Width="30">
-                                                            <Rectangle Width="16" Height="14" StrokeThickness="7">
-                                                                <Rectangle.Fill>
-                                                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_download}" />
-                                                                </Rectangle.Fill>
-                                                            </Rectangle>
-                                                        </Button>
-                                                    </Grid>
                                                 </Grid>
                                             </DataTemplate>
                                         </ContentControl.ContentTemplate>
@@ -174,15 +128,17 @@
                     </Grid.RowDefinitions>
                     
                     <TextBox Grid.Column="1"
-                             Grid.Row="0"/>
+                             Grid.Row="0"
+                             Text="{Binding SearchQuery,UpdateSourceTrigger=LostFocus}"/>
 
                     <Button Grid.Column="2"
                             Grid.Row="0"
                             Style="{DynamicResource MetroCircleButtonStyle}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Height="30"
-                            Width="30">
+                            Height="40"
+                            Width="40"
+                            Command="{Binding GetSearchMusic, Mode=OneWay}">
                         <Rectangle Width="16" Height="14" StrokeThickness="7">
                             <Rectangle.Fill>
                                 <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_arrow_right}" />
@@ -200,8 +156,9 @@
                                 ToolTip="Мои аудиозаписи"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Height="30"
-                                Width="30">
+                                Height="40"
+                                Width="40"
+                                Command="{Binding GetMusicByUser, Mode=OneWay}">
                             <Rectangle Width="16" Height="14" StrokeThickness="7">
                                 <Rectangle.Fill>
                                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_people}" />
@@ -213,8 +170,9 @@
                                 ToolTip="Популярное"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Height="30"
-                                Width="30">
+                                Height="40"
+                                Width="40"
+                                Command="{Binding GetPopularMusic, Mode=OneWay}">
                             <Rectangle Width="16" Height="14" StrokeThickness="7">
                                 <Rectangle.Fill>
                                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_book}" />
@@ -226,8 +184,9 @@
                                 ToolTip="Рекомендации"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Height="30"
-                                Width="30">
+                                Height="40"
+                                Width="40"
+                                Command="{Binding GetRecommendMusic, Mode=OneWay}">
                             <Rectangle Width="16" Height="14" StrokeThickness="7">
                                 <Rectangle.Fill>
                                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_message}" />

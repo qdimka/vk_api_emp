@@ -38,13 +38,23 @@ namespace ExmpleApp.PlayerModule.Core
 
         public bool CanPause => player.CanPause;
 
-        public TimeSpan Position => player.Position;
+        public TimeSpan Position
+        {
+            get { return player.Position; }
+            set
+            {
+                player.Position = value;
+                this.OnPropertyChanged(() => Position);
+            }
+        }
 
         public double Volume
         {
             get { return player.Volume; }
             set { player.Volume = value; }
         }
+
+
 
         public void AudioEnd(EventHandler handler)
         {
