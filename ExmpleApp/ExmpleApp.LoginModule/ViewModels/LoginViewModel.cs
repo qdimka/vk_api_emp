@@ -43,7 +43,11 @@ namespace ExmpleApp.LoginModule.ViewModels
         public LoginModel Login
         {
             get { return this.login; }
-            set { this.SetProperty(ref this.login, value); }
+            set
+            {
+                this.SetProperty(ref this.login, value);
+                this.OnPropertyChanged(()=>Login);
+            }
         }
 
         public ICommand LoginCommand

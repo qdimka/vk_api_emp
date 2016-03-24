@@ -38,6 +38,9 @@
                             <Style TargetType="{x:Type GridViewColumnHeader}">
                                 <Setter Property="Visibility"
                                         Value="Collapsed" />
+
+                                <Setter Property="Foreground"
+                                        Value="Black" />
                             </Style>
                         </GridView.ColumnHeaderContainerStyle>
 
@@ -51,29 +54,33 @@
                                         <ContentControl.ContentTemplate>
                                             <DataTemplate>
                                                 <Grid>
+
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*" />
-                                                        <ColumnDefinition Width="0.5*" />
-                                                        <ColumnDefinition Width="Auto" />
                                                         <ColumnDefinition Width="Auto" />
                                                     </Grid.ColumnDefinitions>
-
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
                                                     <TextBlock Grid.Column="0"
-                                                               Margin="0,2,2,0"
-                                                               TextTrimming="CharacterEllipsis"
-                                                               Text="{Binding Path=Title, Mode=OneWay}" />
-
+                                                                       Grid.Row="0"
+                                                                       Margin="0,2,2,0"
+                                                                       FontSize="14"
+                                                                       TextTrimming="CharacterEllipsis"
+                                                                       Text="{Binding Title, Mode=OneWay}" />
+                                                    <TextBlock Grid.Column="0"
+                                                                       Grid.Row="1"
+                                                                       Margin="0,2,2,4"
+                                                                       TextTrimming="CharacterEllipsis"
+                                                                       Text="{Binding Artist, Mode=OneWay}" />
                                                     <TextBlock Grid.Column="1"
-                                                               Margin="0,2,2,0"
-                                                               TextTrimming="CharacterEllipsis"
-                                                               TextAlignment="Left"
-                                                               Text="{Binding Path=Artist, Mode=OneWay}" />
-
-                                                    <TextBlock Grid.Column="2"
-                                                               HorizontalAlignment="Center"
-                                                               VerticalAlignment="Center"
-                                                               Margin="0,2,0,2"
-                                                               Text="{Binding Path=Duration, Mode=OneWay,Converter={StaticResource DurationToTimeSpan},StringFormat='{}{0:m\\:ss}'}" />
+                                                                       Grid.Row="0"
+                                                                       Grid.RowSpan="2"
+                                                                       FontSize="14"
+                                                                       Margin="0,2,5,4"
+                                                                       VerticalAlignment="Center"
+                                                                       Text="{Binding Path=Duration, Mode=OneWay,Converter={StaticResource DurationToTimeSpan},StringFormat='{}{0:m\\:ss}'}" />
                                                 </Grid>
                                             </DataTemplate>
                                         </ContentControl.ContentTemplate>
@@ -112,7 +119,6 @@
             </Grid>
 
             <Expander Grid.Row="1"
-                      BorderBrush="White" 
                       ExpandDirection="Up"
                       Header="Источник">
                 <Grid>

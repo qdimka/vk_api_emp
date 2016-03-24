@@ -13,7 +13,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
 {
     public class PlayerControlViewModel:BindableBase
     {
-        private IMediaPlayer player;
+        public IMediaPlayer player;
 
         private PlayListViewModel playListViewModel;
         private ICommand playPauseCommand;
