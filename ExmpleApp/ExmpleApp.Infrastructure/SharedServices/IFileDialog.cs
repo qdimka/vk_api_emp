@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ExmpleApp.Infrastructure.SharedServices
 {
-    public interface IVkAudioDownloadService
+    public interface IFileDialog
     {
-        Task DownloadAsync(Uri Url,string FileName,string Path);
+        string SaveDialog();
     }
 }

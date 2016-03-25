@@ -21,14 +21,11 @@ namespace ExmpleApp.PlayerModule.ViewModels
         {
             this.PlayListViewModel = new PlayListViewModel(audioService, mediaPlayer, api);
             this.PlayerControlViewModel = new PlayerControlViewModel(this,mediaPlayer);
-            this.MediaViewModel = new MediaViewModel();
         }
 
         public PlayListViewModel PlayListViewModel { get; private set; }
 
         public PlayerControlViewModel PlayerControlViewModel { get; private set; }
-
-        public MediaViewModel MediaViewModel { get; private set; }
 
     }
 }

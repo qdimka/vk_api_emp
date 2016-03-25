@@ -153,6 +153,10 @@
       <Project>{a31e43cc-c8d6-4a45-a1ad-d04929f6b0db}</Project>
       <Name>ExmpleApp.VKApiModule</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ExmpleAppp.DownloadModule\ExmpleApp.DownloadModule.csproj">
+      <Project>{3e813cff-a0d3-45d3-8cb7-7ad901292720}</Project>
+      <Name>ExmpleApp.DownloadModule</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
