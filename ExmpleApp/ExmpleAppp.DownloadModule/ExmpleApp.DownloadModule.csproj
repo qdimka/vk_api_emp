@@ -7,8 +7,8 @@
     <ProjectGuid>{3E813CFF-A0D3-45D3-8CB7-7AD901292720}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ExmpleAppp.DownloadModule</RootNamespace>
-    <AssemblyName>ExmpleAppp.DownloadModule</AssemblyName>
+    <RootNamespace>ExmpleApp.DownloadModule</RootNamespace>
+    <AssemblyName>ExmpleApp.DownloadModule</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -61,7 +61,6 @@
     <Compile Include="SharedServices\IVkApi.cs" />
     <Compile Include="SharedServices\IVkAudioDownloadService.cs" />
     <Compile Include="SharedServices\IVkAudioService.cs" />
-    <Compile Include="VKSingle.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
