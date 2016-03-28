@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ExmpleApp.Infrastructure.Models;
 using ExmpleApp.Infrastructure.SharedServices;
 using VkNet.Enums.Filters;
+using VkNet.Exception;
 
 namespace ExmpleApp.VKApiModule.Services
 {
@@ -23,10 +24,10 @@ namespace ExmpleApp.VKApiModule.Services
         }
 
 
-        public void Login(LoginModel user)
+        public bool Login(LoginModel user)
         {
             if (user == null)
-                return;
+                return false;
 
             try
             {
@@ -36,10 +37,12 @@ namespace ExmpleApp.VKApiModule.Services
                     Password = user.Password,
                     Settings = Settings.All });
             }
-            catch
+            catch(VkApiAuthorizationException)
             {
 
             }
+
+            return api.Instance.AccessToken != null;
 
         }
 

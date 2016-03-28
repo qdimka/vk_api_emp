@@ -26,6 +26,7 @@ namespace ExmpleApp.LoginModule.ViewModels
         [Import(AllowRecomposition = false)]
         public IModuleManager ModuleManager;
 
+        //Вью на которую переходим при успешной авторизации
         private const string playListView = "PlayerView";
 
         private static Uri PlayListViewUrl = new Uri(playListView, UriKind.Relative);
@@ -57,9 +58,11 @@ namespace ExmpleApp.LoginModule.ViewModels
 
         private void LogIn()
         {
-            loginService.Login(Login);
-            this.ModuleManager.LoadModule("PlayerModule");
-            this.regionManager.RequestNavigate(RegionNames.MainRegion, PlayListViewUrl);
+            if (loginService.Login(Login))
+            {
+                this.ModuleManager.LoadModule("PlayerModule");
+                this.regionManager.RequestNavigate(RegionNames.MainRegion, PlayListViewUrl);
+            }
         }
     }
 }

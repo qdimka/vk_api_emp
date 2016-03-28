@@ -18,9 +18,9 @@ namespace ExmpleAppp.DownloadModule.Services
             client = new WebClient();
         }
 
-        public Task DownloadAsync(Uri Url, string FileName, string Path)
+        public async Task DownloadAsync(Uri Url, string FileName, string Path)
         {
-            await client.DownloadFileAsync(Url,FileName);
+            await client.DownloadFileTaskAsync(Url,FileName);
         }
     }
 }

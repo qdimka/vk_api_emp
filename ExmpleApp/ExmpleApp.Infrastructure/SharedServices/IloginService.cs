@@ -9,7 +9,7 @@ namespace ExmpleApp.Infrastructure.SharedServices
 {
     public interface IloginService
     {
-        void Login(LoginModel user);
+        bool Login(LoginModel user);
         void LogOut();
     }
 }
