@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ExmpleApp.PlayerModule.Core;
 
 namespace ExmpleApp.PlayerModule.ViewModels
 {
-    public class PlayerControlViewModel:BindableBase
+    public class PlayerControlViewModel : BindableBase
     {
         public IMediaPlayer player;
 
@@ -26,7 +27,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
             this.player = player;
             this.playListViewModel = playerViewModel.PlayListViewModel;
 
-            Player.AudioEnd((s,e) => this.ToNextAudio());
+            Player.AudioEnd((s, e) => this.ToNextAudio());
         }
 
         #region Properties
@@ -52,11 +53,17 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         private void PlayPause()
         {
-
-            var audio = playListViewModel.SelectedAudio;
-            if (audio != null)
+            if (Player.State == PlayerState.Play || Player.State == PlayerState.Pause)
             {
-                Player.Play(audio);
+                Player.Pause();
+            }
+            else
+            {
+                var audio = playListViewModel.SelectedAudio;
+                if (audio != null)
+                {
+                    Player.Play(audio);
+                }
             }
         }
 

@@ -83,8 +83,21 @@ namespace ExmpleApp.PlayerModule.Core
 
         public void Pause()
         {
-            player.Pause();
-            State = PlayerState.Pause;
+            if (State == PlayerState.Play)
+            {
+                player.Pause();
+                State = PlayerState.Pause;
+            }
+            else if (State == PlayerState.Pause)
+            {
+                player.Play();
+                State = PlayerState.Play;
+            }
+        }
+
+        public void Play()
+        {
+            player.Play();
         }
 
         public void Play(Audio obj)
