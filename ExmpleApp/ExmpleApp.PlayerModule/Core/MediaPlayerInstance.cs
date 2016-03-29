@@ -13,6 +13,14 @@ using VkNet.Model.Attachments;
 
 namespace ExmpleApp.PlayerModule.Core
 {
+    public enum PlayerState
+    {
+        Play,
+        Pause,
+        Stop
+    }
+
+
     [Export(typeof(IMediaPlayer))]
     public class MediaPlayerInstance : BindableBase, IMediaPlayer
     {
@@ -20,13 +28,13 @@ namespace ExmpleApp.PlayerModule.Core
 
         private MediaPlayer player;
 
-        private bool playerState;
+        private PlayerState playerState;
 
         public MediaPlayerInstance()
         {
             player = new MediaPlayer();
 
-            playerState = false;
+            playerState = PlayerState.Stop;
         }
 
 
@@ -63,7 +71,7 @@ namespace ExmpleApp.PlayerModule.Core
             player.MediaEnded += handler;
         }
 
-        public bool State
+        public PlayerState State
         {
             get { return playerState; }
             set
@@ -76,6 +84,7 @@ namespace ExmpleApp.PlayerModule.Core
         public void Pause()
         {
             player.Pause();
+            State = PlayerState.Pause;
         }
 
         public void Play(Audio obj)
@@ -83,12 +92,13 @@ namespace ExmpleApp.PlayerModule.Core
             CurrentPlay = obj;
             player.Open((new Uri(GetNoHttpsUrl.Get(CurrentPlay.Url.ToString()), UriKind.Absolute)));
             player.Play();
-            State = 
+            State = PlayerState.Play;
         }
 
         public void Stop()
         {
             player.Stop();
+            State = PlayerState.Stop;
         }
     }
 }

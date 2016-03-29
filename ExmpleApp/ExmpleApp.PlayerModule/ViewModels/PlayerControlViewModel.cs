@@ -52,6 +52,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         private void PlayPause()
         {
+
             var audio = playListViewModel.SelectedAudio;
             if (audio != null)
             {

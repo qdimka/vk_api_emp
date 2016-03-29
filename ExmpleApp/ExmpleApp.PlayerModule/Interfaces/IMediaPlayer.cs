@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExmpleApp.PlayerModule.Core;
 using VkNet.Model.Attachments;
 
 namespace ExmpleApp.PlayerModule.Interfaces
@@ -25,6 +26,6 @@ namespace ExmpleApp.PlayerModule.Interfaces
 
         void AudioEnd(EventHandler handler);
 
-        bool State { get; set; }
+        PlayerState State { get; set; }
     }
 }
