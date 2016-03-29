@@ -19,9 +19,10 @@ namespace ExmpleApp.PlayerModule.ViewModels
                                IMediaPlayer mediaPlayer,
                                IVkApi api,
                                IFileDialog filePath,
-                               IVkAudioDownloadService download)
+                               IVkAudioDownloadService download,
+                               IUserActions action)
         {
-            this.PlayListViewModel = new PlayListViewModel(audioService, mediaPlayer, api, filePath, download);
+            this.PlayListViewModel = new PlayListViewModel(audioService, mediaPlayer, api, filePath, download, action);
             this.PlayerControlViewModel = new PlayerControlViewModel(this, mediaPlayer);
         }
 

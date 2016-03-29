@@ -15,12 +15,13 @@
                 </Grid.RowDefinitions>
 
             <TextBlock Text="{Binding Title}"
-                       HorizontalAlignment="Right"
-                       FontSize="14"
+                       HorizontalAlignment="Center"
+                       FontSize="20"
                        Grid.Row="0"/>
 
             <TextBlock Text="{Binding Artist}"
-                       HorizontalAlignment="Right"
+                       HorizontalAlignment="Center"
+                       FontSize="10"
                        Grid.Row="1"/>
 
 

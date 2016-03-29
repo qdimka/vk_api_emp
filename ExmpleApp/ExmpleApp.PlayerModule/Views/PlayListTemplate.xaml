@@ -91,7 +91,9 @@
 
                 <ListView.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Скачать" Command="{Binding DownloadMusic}"/>
+                        <MenuItem Header="Скачать на диск" Command="{Binding DownloadMusic}"/>
+                        <MenuItem Header="Добавить в Мои Аудио" Command="{Binding AddMyAudio}"/>
+                        <MenuItem Header="Удалить из Мои Аудио" Command="{Binding RemoveMyAudio}"/>
                     </ContextMenu>
                 </ListView.ContextMenu>
 

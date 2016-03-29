@@ -58,6 +58,7 @@
     <Compile Include="RegionNames.cs" />
     <Compile Include="SharedServices\IFileDialog.cs" />
     <Compile Include="SharedServices\IloginService.cs" />
+    <Compile Include="SharedServices\IUserActions.cs" />
     <Compile Include="SharedServices\IVkApi.cs" />
     <Compile Include="SharedServices\IVkAudioDownloadService.cs" />
     <Compile Include="SharedServices\IVkAudioService.cs" />

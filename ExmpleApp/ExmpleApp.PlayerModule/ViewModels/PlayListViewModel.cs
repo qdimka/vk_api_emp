@@ -22,8 +22,11 @@ namespace ExmpleApp.PlayerModule.ViewModels
         private IVkApi api;
         private IFileDialog filePath;
         private IVkAudioDownloadService download;
+        private IUserActions action;
 
         private ICommand playCommand;
+        private ICommand addCommand;
+        private ICommand removeCommand;
 
         #region Private
 
@@ -37,13 +40,15 @@ namespace ExmpleApp.PlayerModule.ViewModels
                                  IMediaPlayer mediaPlayer,
                                  IVkApi api,
                                  IFileDialog filePath,
-                                 IVkAudioDownloadService download)
+                                 IVkAudioDownloadService download,
+                                 IUserActions action)
         {
             this.audioService = audioService;
             this.api = api;
             this.player = mediaPlayer;
             this.download = download;
             this.filePath = filePath;
+            this.action = action;
 
 
             Task.Run(() => GetUserMusicAsync()).Wait();
@@ -95,7 +100,11 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         public DelegateCommand DownloadMusic => DelegateCommand.FromAsyncHandler(Download);
 
-        public ICommand PlayCommand => this.playCommand ?? (this.playCommand = new DelegateCommand(Play, () => this.selectedAudio != null));
+        public ICommand PlayCommand => this.playCommand ?? (this.playCommand = new DelegateCommand(Play, () => this.SelectedAudio != null));
+
+        public ICommand AddMyAudio => this.addCommand ?? (this.addCommand = new DelegateCommand(AddMusic, () => this.SelectedAudio != null));
+
+        public ICommand RemoveMyAudio => this.removeCommand ?? (this.removeCommand = new DelegateCommand(RemoveMusic, () => this.SelectedAudio != null));
 
         #endregion
 
@@ -133,6 +142,23 @@ namespace ExmpleApp.PlayerModule.ViewModels
             {
 
             }
+        }
+
+        private void AddMusic()
+        {
+            if(SelectedAudio.OwnerId == api.Instance.UserId) return;
+            action.AddMusic(SelectedAudio);
+        }
+
+        private void RemoveMusic()
+        {
+            if (SelectedAudio.OwnerId != api.Instance.UserId) return;
+
+            action.RemoveMusic(SelectedAudio);
+
+            PlayList.Remove(SelectedAudio);
+  
+            SelectedAudio = PlayList.First();
         }
 
 
