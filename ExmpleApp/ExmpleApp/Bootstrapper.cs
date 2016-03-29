@@ -17,10 +17,8 @@ namespace ExmpleApp
         private const string ModuleCatalogUri = "/ExmpleApp;component/ModulesCatalog.xaml";
 
         //Создание загрузчика для приложения
-        protected override DependencyObject CreateShell()
-        {
-            return this.Container.GetExportedValue<MainWindow>();
-        }
+        protected override DependencyObject CreateShell() 
+                                            => Container.GetExportedValue<MainWindow>();
 
         //Инициализация
         protected override void InitializeShell()
@@ -34,7 +32,7 @@ namespace ExmpleApp
         protected override void ConfigureAggregateCatalog()
         {
             base.ConfigureAggregateCatalog();
-            this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(Bootstrapper).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(Bootstrapper).Assembly));
             //this.AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ExmpleApp.LoginModule.LoginModule).Assembly));
         }
 

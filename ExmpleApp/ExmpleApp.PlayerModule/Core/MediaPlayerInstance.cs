@@ -20,9 +20,13 @@ namespace ExmpleApp.PlayerModule.Core
 
         private MediaPlayer player;
 
+        private bool playerState;
+
         public MediaPlayerInstance()
         {
             player = new MediaPlayer();
+
+            playerState = false;
         }
 
 
@@ -32,7 +36,7 @@ namespace ExmpleApp.PlayerModule.Core
             set
             {
                 currentAudio = value;
-                this.OnPropertyChanged(() => CurrentPlay);
+                OnPropertyChanged(() => CurrentPlay);
             }
         }
 
@@ -44,7 +48,7 @@ namespace ExmpleApp.PlayerModule.Core
             set
             {
                 player.Position = value;
-                this.OnPropertyChanged(() => Position);
+                OnPropertyChanged(() => Position);
             }
         }
 
@@ -54,11 +58,19 @@ namespace ExmpleApp.PlayerModule.Core
             set { player.Volume = value; }
         }
 
-
-
         public void AudioEnd(EventHandler handler)
         {
             player.MediaEnded += handler;
+        }
+
+        public bool State
+        {
+            get { return playerState; }
+            set
+            {
+                playerState = value;
+                OnPropertyChanged(()=>State);
+            }
         }
 
         public void Pause()
@@ -71,6 +83,7 @@ namespace ExmpleApp.PlayerModule.Core
             CurrentPlay = obj;
             player.Open((new Uri(GetNoHttpsUrl.Get(CurrentPlay.Url.ToString()), UriKind.Absolute)));
             player.Play();
+            State = 
         }
 
         public void Stop()

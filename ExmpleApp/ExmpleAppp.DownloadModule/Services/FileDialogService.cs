@@ -1,15 +1,8 @@
-﻿using ExmpleApp.Infrastructure.SharedServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Windows;
-using Microsoft.Win32;
+﻿using System;
 using System.Windows.Forms;
+using ExmpleApp.Infrastructure.SharedServices;
 
-namespace ExmpleAppp.DownloadModule.Services
+namespace ExmpleApp.DownloadModule.Services
 {
     public class FileDialogService : IFileDialog
     {

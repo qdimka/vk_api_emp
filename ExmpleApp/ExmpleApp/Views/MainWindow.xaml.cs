@@ -27,7 +27,7 @@ namespace ExmpleApp.Views
     public partial class MainWindow : MetroWindow, IPartImportsSatisfiedNotification
     {
         private const string LoginModuleName = "LoginModule";
-        private static Uri LoginViewUri = new Uri(@"/LoginView", UriKind.Relative);
+        private static readonly Uri LoginViewUri = new Uri(@"/LoginView", UriKind.Relative);
 
         public MainWindow()
         {
@@ -43,12 +43,12 @@ namespace ExmpleApp.Views
         //Загрузка модуля по умолчанию в регион
         public void OnImportsSatisfied()
         {
-            this.ModuleManager.LoadModuleCompleted +=
+            ModuleManager.LoadModuleCompleted +=
                 (s, e) =>
                 {
                     if (e.ModuleInfo.ModuleName == LoginModuleName)
                     {
-                        this.RegionManager.RequestNavigate(RegionNames.MainRegion, LoginViewUri);
+                        RegionManager.RequestNavigate(RegionNames.MainRegion, LoginViewUri);
                     }
                 };
         }

@@ -24,5 +24,7 @@ namespace ExmpleApp.PlayerModule.Interfaces
         void Pause();
 
         void AudioEnd(EventHandler handler);
+
+        bool State { get; set; }
     }
 }
