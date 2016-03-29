@@ -29,7 +29,7 @@ namespace ExmpleApp.LoginModule.ViewModels
         //Вью на которую переходим при успешной авторизации
         private const string playListView = "PlayerView";
 
-        private readonly Uri PlayListViewUrl = new Uri(playListView, UriKind.Relative);
+        private Uri PlayListViewUrl = new Uri(playListView, UriKind.Relative);
         private LoginModel login;
 
         [ImportingConstructor]

@@ -1,4 +1,5 @@
 ﻿using ExmpleApp.Infrastructure.SharedServices;
+using ExmpleApp.PlayerModule.Helpers;
 using ExmpleApp.PlayerModule.Interfaces;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -19,6 +20,8 @@ namespace ExmpleApp.PlayerModule.ViewModels
         private IVkAudioServiceAsync audioService;
         private IMediaPlayer player;
         private IVkApi api;
+        private IFileDialog filePath;
+        private IVkAudioDownloadService download;
 
         private ICommand playCommand;
 
@@ -32,11 +35,15 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         public PlayListViewModel(IVkAudioServiceAsync audioService,
                                  IMediaPlayer mediaPlayer,
-                                 IVkApi api)
+                                 IVkApi api,
+                                 IFileDialog filePath,
+                                 IVkAudioDownloadService download)
         {
             this.audioService = audioService;
             this.api = api;
             this.player = mediaPlayer;
+            this.download = download;
+            this.filePath = filePath;
 
 
             Task.Run(() => GetUserMusicAsync()).Wait();
@@ -86,6 +93,8 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         public DelegateCommand GetMusicByUser => DelegateCommand.FromAsyncHandler(GetUserMusicAsync);
 
+        public DelegateCommand DownloadMusic => DelegateCommand.FromAsyncHandler(Download);
+
         public ICommand PlayCommand => this.playCommand ?? (this.playCommand = new DelegateCommand(Play, () => this.selectedAudio != null));
 
         #endregion
@@ -111,6 +120,21 @@ namespace ExmpleApp.PlayerModule.ViewModels
         {
             PlayList = await this.audioService.GetMusicByUserIdAsync(api.Instance.UserId);
         }
+
+        private async Task Download()
+        {
+            try
+            {
+                string path = filePath.GetSavePath();
+                if (path == null) return;
+                await download.DownloadAsync((new Uri(GetNoHttpsUrl.Get(SelectedAudio.Url.ToString()))), $"{SelectedAudio.Artist} - {SelectedAudio.Title}.mp3", path);
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+
 
         #endregion
 

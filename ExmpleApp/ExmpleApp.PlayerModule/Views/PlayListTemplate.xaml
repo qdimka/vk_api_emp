@@ -88,6 +88,13 @@
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
+
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Скачать" Command="{Binding DownloadMusic}"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+
             </ListView>
 
 

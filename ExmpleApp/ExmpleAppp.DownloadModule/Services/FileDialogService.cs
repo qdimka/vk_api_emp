@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
 using ExmpleApp.Infrastructure.SharedServices;
+using System.ComponentModel.Composition;
 
 namespace ExmpleApp.DownloadModule.Services
 {
+    [Export(typeof(IFileDialog))]
     public class FileDialogService : IFileDialog
     {
         private FolderBrowserDialog fbDialog;
@@ -13,7 +15,7 @@ namespace ExmpleApp.DownloadModule.Services
             fbDialog = new FolderBrowserDialog();
         }
 
-        public string SaveDialog() 
+        public string GetSavePath() 
                 => fbDialog.ShowDialog() == DialogResult.OK ? fbDialog.SelectedPath : Environment.GetFolderPath(Environment.SpecialFolder.Personal);
     }
 }

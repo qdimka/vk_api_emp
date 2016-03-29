@@ -8,6 +8,6 @@ namespace ExmpleApp.Infrastructure.SharedServices
 {
     public interface IFileDialog
     {
-        string SaveDialog();
+        string GetSavePath();
     }
 }

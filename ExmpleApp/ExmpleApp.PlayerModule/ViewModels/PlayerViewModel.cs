@@ -17,10 +17,12 @@ namespace ExmpleApp.PlayerModule.ViewModels
         [ImportingConstructor]
         public PlayerViewModel(IVkAudioServiceAsync audioService,
                                IMediaPlayer mediaPlayer,
-                               IVkApi api)
+                               IVkApi api,
+                               IFileDialog filePath,
+                               IVkAudioDownloadService download)
         {
-            this.PlayListViewModel = new PlayListViewModel(audioService, mediaPlayer, api);
-            this.PlayerControlViewModel = new PlayerControlViewModel(this,mediaPlayer);
+            this.PlayListViewModel = new PlayListViewModel(audioService, mediaPlayer, api, filePath, download);
+            this.PlayerControlViewModel = new PlayerControlViewModel(this, mediaPlayer);
         }
 
         public PlayListViewModel PlayListViewModel { get; private set; }
