@@ -31,15 +31,21 @@ namespace ExmpleApp.VKApiModule.Services
 
             try
             {
-                api.Instance.Authorize(new VkNet.ApiAuthParams() {
+                api.Instance.Authorize(new VkNet.ApiAuthParams()
+                {
                     ApplicationId = AppID,
                     Login = user.Email,
                     Password = user.Password,
-                    Settings = Settings.All });
+                    Settings = Settings.All
+                });
             }
-            catch(VkApiAuthorizationException)
+            catch (VkApiAuthorizationException)
             {
 
+            }
+            catch (VkApiException)
+            {
+                
             }
 
             return api.Instance.AccessToken != null;

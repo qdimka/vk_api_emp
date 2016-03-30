@@ -118,6 +118,7 @@
     <Compile Include="Behaviors\SelectorSelectionChanged.cs" />
     <Compile Include="Converters\DurationToTimeSpan.cs" />
     <Compile Include="Converters\GetShortUrl.cs" />
+    <Compile Include="Converters\IndexElementConverter.cs" />
     <Compile Include="Converters\PositionTimespanToInteger.cs" />
     <Compile Include="Core\MediaPlayerInstance.cs" />
     <Compile Include="Core\SelectedItemEvent.cs" />

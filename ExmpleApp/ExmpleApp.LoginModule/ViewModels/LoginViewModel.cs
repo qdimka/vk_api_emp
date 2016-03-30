@@ -56,7 +56,7 @@ namespace ExmpleApp.LoginModule.ViewModels
         private void LogIn()
         {
             if (!loginService.Login(Login)) return;
-
+            
             this.ModuleManager.LoadModule("PlayerModule");
             this.regionManager.RequestNavigate(RegionNames.MainRegion, PlayListViewUrl);
         }

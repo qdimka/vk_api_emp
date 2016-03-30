@@ -69,7 +69,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
         {
             get
             {
-                return this.selectedAudio ?? PlayList.First();
+                return this.selectedAudio;// ?? PlayList.First();
             }
             set
             {

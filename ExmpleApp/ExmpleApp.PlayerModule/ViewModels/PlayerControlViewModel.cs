@@ -32,11 +32,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         #region Properties
 
-        public IMediaPlayer Player
-        {
-            get { return player; }
-            set { }
-        }
+        public IMediaPlayer Player => player;
 
         #endregion
 

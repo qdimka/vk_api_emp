@@ -4,9 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ExmpleApp.LoginModule.Views"
-             
+             xmlns:b="clr-namespace:ExmpleApp.LoginModule.Behaviors"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    
     <UserControl.Resources>
         <DataTemplate x:Key="LoginTemplate">
             <Grid HorizontalAlignment="Center"
@@ -38,11 +40,18 @@
                        Grid.Row="1"
                        Grid.Column="0"
                        Text="Pasword"/>
-
-                <TextBox Grid.Row="1"
+                
+                <PasswordBox Grid.Row="1"
+                             Grid.Column="1"
+                             Margin="5">
+                    <i:Interaction.Behaviors>
+                        <b:PasswordBoxBehavior Password="{Binding Password,Mode=TwoWay}"/>
+                    </i:Interaction.Behaviors>
+                </PasswordBox>
+                <!--<TextBox Grid.Row="1"
                      Grid.Column="1"
                      Margin="5"
-                     Text="{Binding Password,UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding Password,UpdateSourceTrigger=PropertyChanged}"/>-->
 
             </Grid>
         </DataTemplate>
