@@ -5,8 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:c="clr-namespace:ExmpleApp.PlayerModule.Converters"
              xmlns:local="clr-namespace:ExmpleApp.PlayerModule.Views"
+             xmlns:Common="clr-namespace:ExmpleApp.PlayerModule.Core"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    
     <UserControl.Resources>
 
         <VisualBrush x:Key="PlayBrush"
@@ -15,15 +17,10 @@
         <VisualBrush x:Key="PauseBrush"
                      Stretch="Fill"
                      Visual="{StaticResource appbar_pause}" />
-        <VisualBrush x:Key="MuteBrush"
-                     Stretch="Fill"
-                     Visual="{StaticResource appbar_sound_mute}" />
-        <VisualBrush x:Key="VolumeBrush"
-                     Stretch="Fill"
-                     Visual="{StaticResource appbar_sound_3}" />
 
         <c:PositionTimespanToInteger x:Key="PositionTimespanToInteger"/>
-
+        <c:StateToBool x:Key="StateToBool"/>
+        
     </UserControl.Resources>
     
     
@@ -67,14 +64,42 @@
                     VerticalAlignment="Center"
                     Style="{DynamicResource MetroCircleButtonStyle}"
                     Height="60"
-                    Width="60">
-                <Rectangle Width="13"
-                           Height="13">
+                    Width="60"
+                    Content="{Binding Mode=OneWay}">
+                <!--<Rectangle Width="17"
+                           Height="21">
                     <Rectangle.Fill>
                         <VisualBrush Stretch="Fill"
                                      Visual="{StaticResource appbar_play}" />
                     </Rectangle.Fill>
-                </Rectangle>
+                </Rectangle>-->
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <Rectangle x:Name="iconRect"
+                                   Width="18"
+                                   Height="20"
+                                   Margin="3,0,0,0"
+                                   Fill="{StaticResource PlayBrush}" />
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Player.State, Mode=OneWay, Converter={StaticResource StateToBool}, ConverterParameter={x:Static Common:PlayerState.Play}}"
+                                         Value="True">
+                                <Setter TargetName="iconRect"
+                                        Property="Fill"
+                                        Value="{StaticResource PauseBrush}" />
+                                <Setter TargetName="iconRect"
+                                        Property="Width"
+                                        Value="16" />
+                                <Setter TargetName="iconRect"
+                                        Property="Height"
+                                        Value="18" />
+                                <Setter TargetName="iconRect"
+                                        Property="Margin"
+                                        Value="0" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+
             </Button>
         </Grid>
 

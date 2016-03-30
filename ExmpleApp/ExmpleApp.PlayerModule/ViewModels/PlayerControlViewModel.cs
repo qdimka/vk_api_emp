@@ -14,14 +14,12 @@ namespace ExmpleApp.PlayerModule.ViewModels
 {
     public class PlayerControlViewModel : BindableBase
     {
-        public IMediaPlayer player;
-
         private PlayListViewModel playListViewModel;
         private ICommand playPauseCommand;
         private ICommand prevAudioCommand;
         private ICommand nextAudioCommand;
         private ICommand stopCommand;
-
+        private IMediaPlayer player;
         public PlayerControlViewModel(PlayerViewModel playerViewModel, IMediaPlayer player)
         {
             this.player = player;
@@ -34,6 +32,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
 
         public IMediaPlayer Player => player;
 
+        public PlayerState State => player.State;
         #endregion
 
         #region Commands

@@ -138,7 +138,7 @@ namespace ExmpleApp.PlayerModule.ViewModels
                 if (path == null) return;
                 await download.DownloadAsync((new Uri(GetNoHttpsUrl.Get(SelectedAudio.Url.ToString()))), $"{SelectedAudio.Artist} - {SelectedAudio.Title}.mp3", path);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
 
             }
